@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+import compression from 'compression';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
@@ -18,7 +19,10 @@ const __dirname = path.dirname(__filename);
 export function createApp() {
   const app = express();
 
-  // Security Headers: Helmet with tailored CSP that permits self-hosted React assets & inline styles without blocking
+  // Efficiency: Gzip compression for all JSON & static responses
+  app.use(compression());
+
+  // Security Headers: Helmet with strict Content-Type nosniff and tailored CSP
   app.use(
     helmet({
       contentSecurityPolicy: {
@@ -33,6 +37,7 @@ export function createApp() {
         },
       },
       crossOriginEmbedderPolicy: false,
+      noSniff: true,
     })
   );
 
@@ -45,9 +50,9 @@ export function createApp() {
     })
   );
 
-  // Body Parsing
-  app.use(express.json({ limit: '2mb' }));
-  app.use(express.urlencoded({ extended: true }));
+  // Security: Strict JSON body limit (100kb)
+  app.use(express.json({ limit: '100kb' }));
+  app.use(express.urlencoded({ extended: true, limit: '100kb' }));
 
   // Rate Limiting for API routes
   const apiLimiter = rateLimit({
@@ -98,13 +103,26 @@ export function createApp() {
   }
 
   if (clientDistPath) {
-    app.use(express.static(clientDistPath));
+    // Serve static assets with 1d cache headers, but keep index.html uncached
+    app.use(
+      express.static(clientDistPath, {
+        maxAge: '1d',
+        setHeaders: (res: Response, filePath: string) => {
+          if (filePath.endsWith('.html')) {
+            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+          } else {
+            res.setHeader('Cache-Control', 'public, max-age=86400, immutable');
+          }
+        },
+      })
+    );
 
-    // Handle React SPA routes
+    // Handle React SPA routes with uncached index.html
     app.get('*', (req: Request, res: Response, next: NextFunction) => {
       if (req.path.startsWith('/api/')) {
         return next();
       }
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
       res.sendFile(path.join(clientDistPath!, 'index.html'));
     });
   }
@@ -122,7 +140,7 @@ export function createApp() {
     console.error('Unhandled server error:', err.message);
     res.status(500).json({
       success: false,
-      error: err.message || 'An unexpected internal server error occurred',
+      error: err.message || 'An internal server error occurred',
     });
   });
 

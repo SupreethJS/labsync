@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Search,
   Filter,
@@ -48,26 +48,38 @@ export const EquipmentCatalog: React.FC<EquipmentCatalogProps> = ({
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedStatus, setSelectedStatus] = useState<string>('All');
 
-  // Filter items
-  const filtered = equipmentList.filter((eq) => {
-    if (selectedDept !== 'All' && eq.department !== selectedDept) return false;
-    if (selectedCategory !== 'All' && eq.category !== selectedCategory) return false;
-    if (selectedStatus !== 'All' && eq.status !== selectedStatus) return false;
+  // Filter items using memoization for maximum rendering efficiency
+  const filtered = useMemo(() => {
+    return equipmentList.filter((eq) => {
+      if (selectedDept !== 'All' && eq.department !== selectedDept) return false;
+      if (selectedCategory !== 'All' && eq.category !== selectedCategory) return false;
+      if (selectedStatus !== 'All' && eq.status !== selectedStatus) return false;
 
-    if (search.trim()) {
-      const q = search.toLowerCase().trim();
-      const matchName = eq.name.toLowerCase().includes(q);
-      const matchSpecs = eq.specs.toLowerCase().includes(q);
-      const matchLab = eq.labRoom.toLowerCase().includes(q);
-      const matchTags = eq.tags.some((t) => t.toLowerCase().includes(q));
-      return matchName || matchSpecs || matchLab || matchTags;
-    }
+      if (search.trim()) {
+        const q = search.toLowerCase().trim();
+        const matchName = eq.name.toLowerCase().includes(q);
+        const matchSpecs = eq.specs.toLowerCase().includes(q);
+        const matchLab = eq.labRoom.toLowerCase().includes(q);
+        const matchTags = eq.tags.some((t) => t.toLowerCase().includes(q));
+        return matchName || matchSpecs || matchLab || matchTags;
+      }
 
-    return true;
-  });
+      return true;
+    });
+  }, [equipmentList, selectedDept, selectedCategory, selectedStatus, search]);
 
   return (
     <div className="space-y-6">
+      {/* Page Header (WCAG AA Strict Heading Hierarchy) */}
+      <div>
+        <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 flex items-center space-x-2">
+          <Layers className="w-6 h-6 text-teal-700" />
+          <span>Cross-Department Equipment Discovery & Reservation</span>
+        </h1>
+        <p className="text-xs text-slate-500 mt-1">
+          Explore specialized laboratory instruments across 5 engineering departments, check live slot availability, and reserve equipment for your research project.
+        </p>
+      </div>
       {/* Top AI Promotion Banner */}
       <div className="bg-gradient-to-r from-teal-500/10 via-cyan-500/10 to-teal-500/5 p-5 rounded-2xl border border-teal-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center space-x-3">

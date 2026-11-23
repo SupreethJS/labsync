@@ -48,6 +48,7 @@ export const StudentRequestsView: React.FC<StudentRequestsViewProps> = ({
       </div>
 
       {/* Requests List */}
+      <h2 className="sr-only">Submitted Project Requests</h2>
       {requests.length === 0 ? (
         <div className="p-12 text-center bg-white rounded-2xl border border-slate-200 shadow-sm">
           <BookOpen className="w-12 h-12 text-slate-400 mx-auto mb-3" />

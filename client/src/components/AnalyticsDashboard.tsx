@@ -136,10 +136,10 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
         {/* Per-Department Usage Breakdown */}
         <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-bold text-slate-900 flex items-center space-x-2">
+            <h2 className="text-sm font-bold text-slate-900 flex items-center space-x-2">
               <TrendingUp className="w-4 h-4 text-teal-600" />
               <span>Departmental Resource Allocation</span>
-            </h3>
+            </h2>
             <span className="text-xs text-slate-400">Hours & Booking Ratio</span>
           </div>
 
@@ -176,9 +176,9 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
           <div>
             <div className="flex items-center space-x-2 mb-2">
               <Sparkles className="w-4 h-4 text-amber-500" />
-              <h3 className="text-sm font-bold text-slate-900">
+              <h2 className="text-sm font-bold text-slate-900">
                 AI Optimization Insights & Underutilized Assets
-              </h3>
+              </h2>
             </div>
             <p className="text-xs text-slate-500 mb-4">
               The AI scheduler identifies underutilized specialized hardware and surfaces interdisciplinary sharing opportunities.
@@ -223,9 +223,9 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
             <Clock className="w-4 h-4 text-teal-600" />
-            <h3 className="text-sm font-bold text-slate-900">
+            <h2 className="text-sm font-bold text-slate-900">
               Live Campus Laboratory Audit Trail
-            </h3>
+            </h2>
           </div>
           <span className="text-xs text-slate-400">Transparency & Scheduling Events</span>
         </div>

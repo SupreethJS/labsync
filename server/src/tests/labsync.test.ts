@@ -34,14 +34,14 @@ describe('LabSync Comprehensive Audit Test Suite', () => {
       const res = await request(app).get('/api/equipment?department=Mechanical');
       expect(res.status).toBe(200);
       expect(res.body.data.length).toBeGreaterThan(0);
-      expect(res.body.data.every((e: any) => e.department === 'Mechanical')).toBe(true);
+      expect(res.body.data.every((e: { department: string }) => e.department === 'Mechanical')).toBe(true);
     });
 
     it('filters equipment by category and status', async () => {
       const res = await request(app).get('/api/equipment?category=Testing %26 Measurement');
       expect(res.status).toBe(200);
       expect(res.body.data.length).toBeGreaterThan(0);
-      expect(res.body.data.every((e: any) => e.category === 'Testing & Measurement')).toBe(true);
+      expect(res.body.data.every((e: { category: string }) => e.category === 'Testing & Measurement')).toBe(true);
     });
 
     it('filters equipment by text search keyword', async () => {
@@ -101,7 +101,7 @@ describe('LabSync Comprehensive Audit Test Suite', () => {
 
       expect(res.status).toBe(200);
       const data = res.body.data;
-      const recNames = data.recommendations.map((r: any) => r.equipmentName);
+      const recNames = data.recommendations.map((r: { equipmentName: string }) => r.equipmentName);
       expect(recNames.some((n: string) => n.includes('A6000') || n.includes('Mac Studio'))).toBe(true);
     });
   });
@@ -180,7 +180,7 @@ describe('LabSync Comprehensive Audit Test Suite', () => {
         endTime: '12:00',
       });
       expect(res.status).toBe(400);
-      expect(res.body.issues.some((i: any) => i.path === 'studentEmail')).toBe(true);
+      expect(res.body.issues.some((i: { path: string }) => i.path === 'studentEmail')).toBe(true);
     });
 
     it('rejects invalid date format (not YYYY-MM-DD) with 400', async () => {
@@ -197,7 +197,7 @@ describe('LabSync Comprehensive Audit Test Suite', () => {
         endTime: '12:00',
       });
       expect(res.status).toBe(400);
-      expect(res.body.issues.some((i: any) => i.path === 'projectDeadline')).toBe(true);
+      expect(res.body.issues.some((i: { path: string }) => i.path === 'projectDeadline')).toBe(true);
     });
 
     it('rejects endTime <= startTime with 400', async () => {
@@ -214,7 +214,7 @@ describe('LabSync Comprehensive Audit Test Suite', () => {
         endTime: '14:00', // Equal!
       });
       expect(res.status).toBe(400);
-      expect(res.body.issues.some((i: any) => i.path === 'endTime')).toBe(true);
+      expect(res.body.issues.some((i: { path: string }) => i.path === 'endTime')).toBe(true);
     });
 
     it('rejects invalid department not in enum with 400', async () => {

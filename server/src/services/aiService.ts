@@ -18,7 +18,7 @@ export class AIService {
     if (apiKey) {
       try {
         this.client = new GoogleGenAI({ apiKey });
-      } catch (err) {
+      } catch (err: unknown) {
         console.warn('Failed to initialize GoogleGenAI client, will use deterministic fallback:', err);
         this.client = null;
       }
@@ -29,7 +29,11 @@ export class AIService {
    * Helper to execute Gemini generation with cascading fallback across models:
    * 1. defaultModel (gemini-2.5-flash or process.env.GEMINI_MODEL)
    * 2. fallbackModel (gemini-2.0-flash)
-   * 3. throws so caller gracefully falls back to deterministic heuristics
+   * 3. Throws when all remote calls fail, allowing graceful fallback to deterministic heuristics.
+   *
+   * @param systemInstruction System role and schema enforcement instructions
+   * @param userContent Formatted user prompt and catalog/conflict context
+   * @returns Generated JSON text and model name used
    */
   private async generateWithModelFallback(
     systemInstruction: string,
@@ -56,8 +60,9 @@ export class AIService {
         if (text && text.trim().length > 0) {
           return { text, modelUsed: model };
         }
-      } catch (err: any) {
-        console.warn(`Gemini call using model ${model} failed:`, err?.message || err);
+      } catch (err: unknown) {
+        const errorMsg = err instanceof Error ? err.message : String(err);
+        console.warn(`Gemini call using model ${model} failed:`, errorMsg);
         lastError = err instanceof Error ? err : new Error(String(err));
       }
     }
@@ -67,14 +72,24 @@ export class AIService {
 
   /**
    * GenAI Equipment Discovery ("Find Equipment with AI")
+   * Processes a student's plain-English research query and returns ranked, compatible
+   * instruments with match scores, rationale, and highlighted specifications.
+   *
+   * Uses Gemini 2.5 Flash with fallback to Gemini 2.0 Flash, and transparently falls
+   * back to the heuristic keyword-matching engine if no API key is set or remote calls fail.
+   *
+   * @param prompt Natural language description of research requirements
+   * @param userDepartment Optional student home department for cross-sharing affinity scoring
+   * @returns Structured discovery recommendations with match analysis
    */
   public async discoverEquipment(prompt: string, userDepartment?: string): Promise<AIDiscoveryResult> {
     if (this.client && process.env.GEMINI_API_KEY?.trim()) {
       try {
         const result = await this.discoverWithGemini(prompt, userDepartment);
         return result;
-      } catch (error) {
-        console.warn('Gemini discovery call failed, activating smart deterministic fallback:', (error as Error).message);
+      } catch (error: unknown) {
+        const errorMsg = error instanceof Error ? error.message : String(error);
+        console.warn('Gemini discovery call failed, activating smart deterministic fallback:', errorMsg);
       }
     }
 
@@ -83,14 +98,23 @@ export class AIService {
 
   /**
    * GenAI Conflict Resolution Engine (Hero Feature)
+   * Resolves concurrent booking conflicts between competing student requests by evaluating:
+   * 1. Project Deadline Urgency (e.g. 24h thesis defense submission vs 14d homework)
+   * 2. Requirement Specificity (e.g. strict VRAM or composite filament necessity)
+   * 3. Cross-Department Allocation Equity
+   * 4. Alternative Open Slots & Equivalent Hardware Compatibility
+   *
+   * @param conflict Active scheduling conflict object containing both competing requests
+   * @returns Comprehensive AI resolution plan with priority and secondary reallocations
    */
   public async resolveConflict(conflict: SchedulingConflict): Promise<AIResolutionPlan> {
     if (this.client && process.env.GEMINI_API_KEY?.trim()) {
       try {
         const result = await this.resolveWithGemini(conflict);
         return result;
-      } catch (error) {
-        console.warn('Gemini conflict resolution failed, activating smart deterministic fallback:', (error as Error).message);
+      } catch (error: unknown) {
+        const errorMsg = error instanceof Error ? error.message : String(error);
+        console.warn('Gemini conflict resolution failed, activating smart deterministic fallback:', errorMsg);
       }
     }
 
@@ -237,6 +261,15 @@ ${compatibleAlternatives.map((a) => `- ${a.name} (ID: ${a.id}, Lab: ${a.labRoom}
 
   // --- Deterministic Transparent Fallback Algorithms ---
 
+  /**
+   * Deterministic heuristic scoring algorithm for Equipment Discovery.
+   * Evaluates prompt tokens against equipment technical specs, name, categories,
+   * and tags using pre-weighted academic domain rules with cross-department sharing bonuses.
+   *
+   * @param prompt Natural language research query
+   * @param userDepartment Optional home department
+   * @returns Fallback discovery recommendations with algorithmic match reasoning
+   */
   public discoverWithFallback(prompt: string, userDepartment?: string): AIDiscoveryResult {
     const all = store.getAllEquipment();
     const query = prompt.toLowerCase();
@@ -363,6 +396,15 @@ ${compatibleAlternatives.map((a) => `- ${a.name} (ID: ${a.id}, Lab: ${a.labRoom}
     };
   }
 
+  /**
+   * Deterministic deadline-fairness scoring algorithm for Conflict Resolution.
+   * Calculates deadline proximity (days remaining until submission), requirement specificity,
+   * and interdisciplinary fairness to award priority to the most time-critical milestone while
+   * automatically provisioning open evening slots or compatible alternate hardware for the other party.
+   *
+   * @param conflict Scheduling conflict record with overlapping requests
+   * @returns Algorithmic allocation plan with fairness justification
+   */
   public resolveWithFallback(conflict: SchedulingConflict): AIResolutionPlan {
     const { requestA, requestB, equipmentName } = conflict;
 

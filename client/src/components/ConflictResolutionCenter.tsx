@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   AlertTriangle,
   Sparkles,
@@ -66,8 +66,8 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
     }
   };
 
-  const activeConflicts = conflicts.filter((c) => c.status === 'active');
-  const resolvedConflicts = conflicts.filter((c) => c.status === 'resolved');
+  const activeConflicts = useMemo(() => conflicts.filter((c) => c.status === 'active'), [conflicts]);
+  const resolvedConflicts = useMemo(() => conflicts.filter((c) => c.status === 'resolved'), [conflicts]);
 
   return (
     <div className="space-y-6">
@@ -104,6 +104,7 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
       </div>
 
       {/* Active Conflicts List */}
+      <h2 className="sr-only">Active Laboratory Conflicts List</h2>
       {activeConflicts.length === 0 ? (
         <div className="p-8 text-center bg-white rounded-2xl border border-slate-200 shadow-sm">
           <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto mb-3" />
@@ -394,9 +395,9 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
         <div className="mt-8">
           <div className="flex items-center space-x-2 mb-3">
             <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-600">
+            <h2 className="text-xs font-bold uppercase tracking-wider text-slate-600">
               Successfully Resolved Conflicts ({resolvedConflicts.length})
-            </h3>
+            </h2>
           </div>
 
           <div className="space-y-3">

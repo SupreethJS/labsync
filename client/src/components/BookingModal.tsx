@@ -390,9 +390,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <div className="flex items-start space-x-2.5">
                 <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-amber-900">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-amber-900">
                     Live Schedule Overlap Detected
-                  </h4>
+                  </h3>
                   <p className="text-xs text-amber-800 mt-0.5">
                     Your requested slot ({startTime} - {endTime}) overlaps with an active reservation by{' '}
                     <strong>{conflictingReqs[0]?.studentName || 'another student'}</strong> for "

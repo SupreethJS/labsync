@@ -4,7 +4,15 @@ import { AIResolutionPlan, SchedulingConflict, AccessRequest } from '../types/in
 
 export class ConflictService {
   /**
-   * Check whether a requested slot overlaps with any active bookings on that equipment.
+   * Evaluates slot temporal overlap against active reservations on the specified equipment.
+   * Uses standard interval intersection algebra: (newStart < existingEnd) && (newEnd > existingStart).
+   *
+   * @param equipmentId Target laboratory equipment identifier
+   * @param date Reservation date (YYYY-MM-DD)
+   * @param startTime Requested slot start time (HH:mm)
+   * @param endTime Requested slot end time (HH:mm)
+   * @param excludeRequestId Optional request ID to bypass (e.g. when updating existing booking)
+   * @returns Object containing boolean collision flag and list of conflicting requests
    */
   public checkOverlap(
     equipmentId: string,
@@ -27,7 +35,14 @@ export class ConflictService {
   }
 
   /**
-   * Suggest open slots on a given date for an equipment
+   * Proposes candidate open slots for an instrument on a specific date.
+   * Evaluates standard campus academic blocks (09-12, 12-15, 15-18, 18-21) and filters
+   * out any window that intersects with approved or pending bookings.
+   *
+   * @param equipmentId Target laboratory equipment identifier
+   * @param date Target reservation date (YYYY-MM-DD)
+   * @param slotDurationHours Standard allocation duration in hours (defaults to 3)
+   * @returns Array of non-conflicting time ranges
    */
   public getSuggestedOpenSlots(
     equipmentId: string,
@@ -53,7 +68,12 @@ export class ConflictService {
   }
 
   /**
-   * Run AI Conflict Resolution on an active conflict.
+   * Triggers the GenAI conflict resolution pipeline for competing student requests.
+   * Delegates reasoning to Gemini with fallback to transparent deadline-fairness scoring,
+   * then caches the generated allocation plan on the conflict record.
+   *
+   * @param conflictId Unique conflict identifier
+   * @returns Structured AI resolution plan with priority assignment and fairness rationale
    */
   public async generateResolution(conflictId: string): Promise<AIResolutionPlan> {
     const conflict = store.getConflictById(conflictId);
@@ -67,7 +87,13 @@ export class ConflictService {
   }
 
   /**
-   * Apply recommended AI resolution plan live to the database/store.
+   * Applies the approved AI schedule plan to live in-memory state.
+   * Commits the priority request to its requested/designated slot, reroutes or shifts
+   * the secondary request, marks the conflict as resolved, and registers an audit log event.
+   *
+   * @param conflictId Unique conflict identifier
+   * @param facultyActor Name of the faculty member or administrator applying the resolution
+   * @returns Updated conflict record, priority request, and reallocated secondary request
    */
   public applyResolution(conflictId: string, facultyActor?: string): {
     conflict: SchedulingConflict;

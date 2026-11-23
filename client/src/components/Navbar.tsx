@@ -222,12 +222,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => onTabChange('catalog')}
                 className={`px-2 py-0.5 rounded text-xs ${activeTab === 'catalog' ? 'bg-teal-200 font-bold' : ''}`}
+                aria-current={activeTab === 'catalog' ? 'page' : undefined}
               >
                 Catalog
               </button>
               <button
                 onClick={() => onTabChange('my-requests')}
                 className={`px-2 py-0.5 rounded text-xs ${activeTab === 'my-requests' ? 'bg-teal-200 font-bold' : ''}`}
+                aria-current={activeTab === 'my-requests' ? 'page' : undefined}
               >
                 My Requests
               </button>
@@ -237,18 +239,21 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => onTabChange('faculty-requests')}
                 className={`px-2 py-0.5 rounded text-xs ${activeTab === 'faculty-requests' ? 'bg-teal-200 font-bold' : ''}`}
+                aria-current={activeTab === 'faculty-requests' ? 'page' : undefined}
               >
                 Approvals
               </button>
               <button
                 onClick={() => onTabChange('conflicts')}
                 className={`px-2 py-0.5 rounded text-xs font-bold text-rose-700 ${activeTab === 'conflicts' ? 'bg-rose-100' : ''}`}
+                aria-current={activeTab === 'conflicts' ? 'page' : undefined}
               >
                 Conflicts ({activeConflictCount})
               </button>
               <button
                 onClick={() => onTabChange('analytics')}
                 className={`px-2 py-0.5 rounded text-xs ${activeTab === 'analytics' ? 'bg-teal-200 font-bold' : ''}`}
+                aria-current={activeTab === 'analytics' ? 'page' : undefined}
               >
                 Analytics
               </button>

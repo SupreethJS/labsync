@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   ShieldCheck,
   CheckCircle,
@@ -84,14 +84,16 @@ export const FacultyApprovalPortal: React.FC<FacultyApprovalPortalProps> = ({
     }
   };
 
-  const filtered = requests.filter((r) => {
-    if (filterStatus !== 'All' && r.status !== filterStatus) return false;
-    if (filterDept !== 'All' && r.department !== filterDept) return false;
-    return true;
-  });
+  const filtered = useMemo(() => {
+    return requests.filter((r) => {
+      if (filterStatus !== 'All' && r.status !== filterStatus) return false;
+      if (filterDept !== 'All' && r.department !== filterDept) return false;
+      return true;
+    });
+  }, [requests, filterStatus, filterDept]);
 
-  const pendingCount = requests.filter((r) => r.status === 'pending').length;
-  const conflictCount = requests.filter((r) => r.status === 'conflict').length;
+  const pendingCount = useMemo(() => requests.filter((r) => r.status === 'pending').length, [requests]);
+  const conflictCount = useMemo(() => requests.filter((r) => r.status === 'conflict').length, [requests]);
 
   return (
     <div className="space-y-6">
@@ -164,6 +166,7 @@ export const FacultyApprovalPortal: React.FC<FacultyApprovalPortalProps> = ({
       </div>
 
       {/* Request Cards List */}
+      <h2 className="sr-only">Student Access Requests Evaluation List</h2>
       {filtered.length === 0 ? (
         <div className="p-8 text-center bg-white rounded-2xl border border-slate-200 shadow-sm">
           <Layers className="w-10 h-10 text-slate-400 mx-auto mb-2" />
