@@ -255,11 +255,11 @@ export const FacultyApprovalPortal: React.FC<FacultyApprovalPortalProps> = ({
                 </div>
 
                 {/* Bottom Actions */}
-                <div className="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-end gap-2">
+                <div className="mt-4 pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2">
                   {req.status === 'conflict' ? (
                     <button
                       onClick={onNavigateToConflict}
-                      className="px-4 py-2 bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-700 hover:to-amber-700 text-white rounded-lg text-xs font-bold flex items-center space-x-1.5 shadow-sm"
+                      className="w-full sm:w-auto px-4 py-2.5 min-h-[44px] sm:min-h-[36px] bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-700 hover:to-amber-700 text-white rounded-lg text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm"
                     >
                       <Sparkles className="w-4 h-4" />
                       <span>Resolve Conflict with AI</span>
@@ -272,7 +272,7 @@ export const FacultyApprovalPortal: React.FC<FacultyApprovalPortalProps> = ({
                           setRejectRemarks('');
                         }}
                         disabled={isProcessing}
-                        className="px-3.5 py-1.5 border border-rose-300 text-rose-700 hover:bg-rose-50 rounded-lg text-xs font-bold flex items-center space-x-1 transition-colors"
+                        className="w-full sm:w-auto px-4 py-2 min-h-[44px] sm:min-h-[36px] border border-rose-300 text-rose-700 hover:bg-rose-50 rounded-lg text-xs font-bold flex items-center justify-center space-x-1 transition-colors"
                       >
                         <X className="w-3.5 h-3.5" />
                         <span>Reject</span>
@@ -281,7 +281,7 @@ export const FacultyApprovalPortal: React.FC<FacultyApprovalPortalProps> = ({
                       <button
                         onClick={() => handleApprove(req.id)}
                         disabled={isProcessing}
-                        className="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold flex items-center space-x-1.5 shadow-sm transition-all"
+                        className="w-full sm:w-auto px-4 py-2 min-h-[44px] sm:min-h-[36px] bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm transition-all"
                       >
                         {isProcessing ? (
                           <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -294,7 +294,7 @@ export const FacultyApprovalPortal: React.FC<FacultyApprovalPortalProps> = ({
                       </button>
                     </>
                   ) : (
-                    <span className="text-xs text-slate-400 italic">
+                    <span className="text-xs text-slate-400 italic text-center sm:text-right">
                       Action finalized on this request.
                     </span>
                   )}
@@ -308,12 +308,12 @@ export const FacultyApprovalPortal: React.FC<FacultyApprovalPortalProps> = ({
       {/* Reject Remarks Dialog Modal */}
       {rejectingRequestId && (
         <div
-          className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4"
           role="dialog"
           aria-modal="true"
           aria-labelledby="reject-dialog-title"
         >
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200">
+          <div className="bg-white rounded-2xl w-[95vw] max-w-md max-h-[90vh] overflow-y-auto p-4 sm:p-6 shadow-2xl border border-slate-200 my-auto">
             <h3 id="reject-dialog-title" className="text-base font-bold text-slate-900">
               Reject Access Request
             </h3>
@@ -335,17 +335,17 @@ export const FacultyApprovalPortal: React.FC<FacultyApprovalPortalProps> = ({
               />
             </div>
 
-            <div className="mt-4 flex items-center justify-end space-x-2">
+            <div className="mt-4 flex flex-col sm:flex-row items-center justify-end gap-2">
               <button
                 onClick={() => setRejectingRequestId(null)}
-                className="px-3 py-1.5 border border-slate-300 text-slate-700 text-xs font-semibold rounded-lg hover:bg-slate-100"
+                className="w-full sm:w-auto px-4 py-2 min-h-[44px] sm:min-h-[36px] border border-slate-300 text-slate-700 text-xs font-semibold rounded-lg hover:bg-slate-100 flex items-center justify-center"
               >
                 Cancel
               </button>
               <button
                 onClick={handleConfirmReject}
                 disabled={Boolean(actionInProgressId)}
-                className="px-4 py-1.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-lg shadow-sm"
+                className="w-full sm:w-auto px-4 py-2 min-h-[44px] sm:min-h-[36px] bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-lg shadow-sm flex items-center justify-center"
               >
                 Confirm Rejection
               </button>

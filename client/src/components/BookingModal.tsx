@@ -169,12 +169,12 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="booking-modal-title"
     >
-      <div className="relative bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 overflow-hidden my-8">
+      <div className="relative bg-white rounded-2xl w-[95vw] max-w-2xl max-h-[90vh] overflow-y-auto p-4 sm:p-6 shadow-2xl border border-slate-200 my-auto">
         {/* Header */}
         <div className="flex items-start justify-between pb-4 border-b border-slate-100">
           <div>
@@ -445,7 +445,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="w-full sm:w-auto px-4 py-2 border border-slate-300 text-slate-700 hover:bg-slate-100 rounded-lg text-xs font-semibold transition-colors"
+              className="w-full sm:w-auto px-4 py-2.5 min-h-[44px] sm:min-h-[38px] border border-slate-300 text-slate-700 hover:bg-slate-100 rounded-lg text-xs font-semibold transition-colors flex items-center justify-center"
             >
               Cancel
             </button>
@@ -455,7 +455,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 type="button"
                 onClick={() => handleSubmit(true)}
                 disabled={submitting}
-                className="w-full sm:w-auto px-4 py-2 bg-gradient-to-r from-amber-600 to-rose-600 hover:from-amber-700 hover:to-rose-700 text-white rounded-lg text-xs font-bold flex items-center justify-center space-x-1.5 shadow-md transition-all"
+                className="w-full sm:w-auto px-4 py-2.5 min-h-[44px] sm:min-h-[38px] bg-gradient-to-r from-amber-600 to-rose-600 hover:from-amber-700 hover:to-rose-700 text-white rounded-lg text-xs font-bold flex items-center justify-center space-x-1.5 shadow-md transition-all"
               >
                 {submitting ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
@@ -470,7 +470,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full sm:w-auto px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm transition-all"
+                className="w-full sm:w-auto px-4 py-2.5 min-h-[44px] sm:min-h-[38px] bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm transition-all"
               >
                 {submitting ? (
                   <Loader2 className="w-4 h-4 animate-spin" />

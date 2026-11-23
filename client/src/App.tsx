@@ -198,13 +198,13 @@ export function App() {
 
       {/* Footer */}
       <footer className="bg-white border-t border-slate-200 py-6 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
-          <div className="flex items-center space-x-2">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3 text-center sm:text-left">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5">
             <span className="font-bold text-teal-800">LabSync</span>
             <span>&bull;</span>
             <span>Campus Laboratory Resource-Sharing Platform</span>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2">
             <span>Production Single-Container Architecture</span>
             <span>&bull;</span>
             <span className="font-mono">Google Cloud Run Ready</span>

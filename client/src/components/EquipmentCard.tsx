@@ -36,7 +36,7 @@ export const EquipmentCard: React.FC<EquipmentCardProps> = ({ equipment, onBook 
 
   return (
     <div className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-slate-300 transition-all flex flex-col justify-between overflow-hidden group">
-      <div className="p-5">
+      <div className="p-4 sm:p-5">
         {/* Top Badges */}
         <div className="flex items-center justify-between gap-2 flex-wrap">
           <div className="flex items-center space-x-1.5 flex-wrap gap-y-1">
@@ -87,20 +87,20 @@ export const EquipmentCard: React.FC<EquipmentCardProps> = ({ equipment, onBook 
       </div>
 
       {/* Booked Slots Toggle & Action Button */}
-      <div className="px-5 pb-5 pt-2 border-t border-slate-100 bg-slate-50/50">
-        <div className="flex items-center justify-between">
+      <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-2.5 border-t border-slate-100 bg-slate-50/50">
+        <div className="flex flex-wrap items-center justify-between gap-2.5">
           {/* Slot status toggle */}
           {equipment.slots.length > 0 ? (
             <button
               onClick={() => setShowSlots(!showSlots)}
-              className="text-xs font-semibold text-teal-800 hover:text-teal-900 flex items-center space-x-1"
+              className="text-xs font-semibold text-teal-800 hover:text-teal-900 flex items-center space-x-1 min-h-[36px]"
             >
               <Clock className="w-3.5 h-3.5" />
               <span>{equipment.slots.length} Booked Slot{equipment.slots.length > 1 ? 's' : ''}</span>
               {showSlots ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
             </button>
           ) : (
-            <span className="text-xs font-medium text-emerald-700 flex items-center space-x-1">
+            <span className="text-xs font-medium text-emerald-700 flex items-center space-x-1 min-h-[36px]">
               <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
               <span>Available for reservation</span>
             </span>
@@ -109,7 +109,7 @@ export const EquipmentCard: React.FC<EquipmentCardProps> = ({ equipment, onBook 
           <button
             onClick={() => onBook(equipment.id)}
             disabled={equipment.status === 'Maintenance'}
-            className="px-3.5 py-1.5 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-bold flex items-center space-x-1 shadow-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+            className="w-full sm:w-auto px-4 py-2 min-h-[44px] sm:min-h-[36px] bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-bold flex items-center justify-center space-x-1 shadow-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <span>Request Access</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -125,14 +125,16 @@ export const EquipmentCard: React.FC<EquipmentCardProps> = ({ equipment, onBook 
             {equipment.slots.map((slot) => (
               <div
                 key={slot.id}
-                className="p-2 bg-white rounded-lg border border-slate-200 flex items-center justify-between text-[11px]"
+                className="p-2 bg-white rounded-lg border border-slate-200 flex items-center justify-between gap-2 text-[11px]"
               >
-                <div>
-                  <span className="font-bold text-slate-800">{slot.studentName}</span>{' '}
-                  <span className="text-slate-500">({slot.department})</span>
-                  <p className="text-[10px] text-slate-400 truncate max-w-[200px]">{slot.projectTitle}</p>
+                <div className="min-w-0 flex-1">
+                  <div className="truncate">
+                    <span className="font-bold text-slate-800">{slot.studentName}</span>{' '}
+                    <span className="text-slate-500">({slot.department})</span>
+                  </div>
+                  <p className="text-[10px] text-slate-400 truncate">{slot.projectTitle}</p>
                 </div>
-                <div className="text-right font-medium text-teal-800 whitespace-nowrap">
+                <div className="text-right font-medium text-teal-800 whitespace-nowrap shrink-0">
                   <div>{slot.date}</div>
                   <div className="text-[10px] text-slate-500">{slot.startTime} - {slot.endTime}</div>
                 </div>

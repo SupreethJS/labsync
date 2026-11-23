@@ -72,7 +72,7 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
   return (
     <div className="space-y-6">
       {/* Hero Header Banner */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 p-6 sm:p-8 text-white shadow-xl border border-teal-800/40">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 p-5 sm:p-8 text-white shadow-xl border border-teal-800/40">
         <div className="relative z-10 max-w-3xl">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5 text-rose-400" />
@@ -126,7 +126,7 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
                 className="bg-white rounded-2xl border border-rose-200 shadow-md overflow-hidden transition-all"
               >
                 {/* Conflict Bar Header */}
-                <div className="bg-gradient-to-r from-rose-50 via-amber-50 to-white px-6 py-4 border-b border-rose-200 flex flex-wrap items-center justify-between gap-3">
+                <div className="bg-gradient-to-r from-rose-50 via-amber-50 to-white px-4 sm:px-6 py-3.5 sm:py-4 border-b border-rose-200 flex flex-wrap items-center justify-between gap-3">
                   <div className="flex items-center space-x-3">
                     <div className="w-9 h-9 rounded-xl bg-rose-600 text-white flex items-center justify-center font-bold shadow-sm">
                       #{cIdx + 1}
@@ -146,7 +146,7 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-3 text-xs font-medium text-slate-600">
+                  <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-slate-600">
                     <div className="flex items-center space-x-1 bg-white px-2.5 py-1 rounded-md border border-slate-200">
                       <Calendar className="w-3.5 h-3.5 text-slate-500" />
                       <span>{conflict.date}</span>
@@ -161,7 +161,7 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
                 </div>
 
                 {/* Competing Requests Side-by-Side Comparison */}
-                <div className="p-6">
+                <div className="p-4 sm:p-6">
                   <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center space-x-1.5">
                     <Layers className="w-4 h-4 text-slate-400" />
                     <span>Competing Student Access Requests</span>
@@ -353,11 +353,11 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
                       </div>
 
                       {/* One-Click Apply Button */}
-                      <div className="flex flex-col sm:flex-row items-center justify-end gap-2.5 pt-2">
+                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2.5 pt-2">
                         <button
                           onClick={() => handleResolveWithAI(conflict.id)}
                           disabled={isResolving}
-                          className="w-full sm:w-auto px-3.5 py-2 text-slate-600 hover:text-slate-900 text-xs font-semibold rounded-lg hover:bg-slate-100 transition-colors flex items-center justify-center space-x-1"
+                          className="w-full sm:w-auto px-4 py-2.5 min-h-[44px] sm:min-h-[38px] text-slate-600 hover:text-slate-900 text-xs font-semibold rounded-lg hover:bg-slate-100 transition-colors flex items-center justify-center space-x-1 border border-slate-200 sm:border-transparent"
                         >
                           <RefreshCw className={`w-3.5 h-3.5 ${isResolving ? 'animate-spin' : ''}`} />
                           <span>Re-evaluate</span>
@@ -366,7 +366,7 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
                         <button
                           onClick={() => handleApplyPlan(conflict.id)}
                           disabled={isApplying}
-                          className="w-full sm:w-auto px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center justify-center space-x-2 shadow-md transition-all disabled:opacity-50"
+                          className="w-full sm:w-auto px-5 py-2.5 min-h-[44px] sm:min-h-[38px] bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center justify-center space-x-2 shadow-md transition-all disabled:opacity-50"
                         >
                           {isApplying ? (
                             <>

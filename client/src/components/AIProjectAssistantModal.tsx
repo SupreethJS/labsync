@@ -77,12 +77,12 @@ export const AIProjectAssistantModal: React.FC<AIProjectAssistantModalProps> = (
 
   return (
     <div
-      className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="ai-assistant-title"
     >
-      <div className="relative bg-white rounded-2xl max-w-3xl w-full p-6 shadow-2xl border border-slate-200 overflow-hidden my-8">
+      <div className="relative bg-white rounded-2xl w-[95vw] max-w-2xl max-h-[90vh] overflow-y-auto p-4 sm:p-6 shadow-2xl border border-slate-200 my-auto">
         {/* Top Header */}
         <div className="flex items-start justify-between pb-4 border-b border-slate-100">
           <div className="flex items-center space-x-3">
@@ -122,12 +122,12 @@ export const AIProjectAssistantModal: React.FC<AIProjectAssistantModalProps> = (
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="e.g. I need to train a vision model and deploy it on a drone before Friday..."
-              className="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all resize-none"
+              className="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 pb-12 sm:pb-2.5 sm:pr-36 text-sm text-slate-900 placeholder-slate-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all resize-none"
             />
             <button
               onClick={() => handleSubmit()}
               disabled={loading || !prompt.trim()}
-              className="absolute bottom-3 right-3 px-3.5 py-1.5 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold flex items-center space-x-1.5 shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="absolute bottom-2.5 right-2.5 px-3 py-1.5 min-h-[36px] bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold flex items-center justify-center space-x-1.5 shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <>
@@ -193,10 +193,10 @@ export const AIProjectAssistantModal: React.FC<AIProjectAssistantModalProps> = (
               {result.recommendations.map((rec, idx) => (
                 <div
                   key={idx}
-                  className="p-4 rounded-xl border border-slate-200 bg-white hover:border-teal-400 hover:shadow-md transition-all group"
+                  className="p-3.5 sm:p-4 rounded-xl border border-slate-200 bg-white hover:border-teal-400 hover:shadow-md transition-all group"
                 >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex-1">
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                    <div className="flex-1 min-w-0">
                       <div className="flex items-center space-x-2 flex-wrap gap-y-1">
                         <span className="px-2 py-0.5 rounded-md text-[11px] font-bold bg-teal-100 text-teal-800">
                           {rec.matchScore}% Match
@@ -238,10 +238,10 @@ export const AIProjectAssistantModal: React.FC<AIProjectAssistantModalProps> = (
                     </div>
 
                     {/* Book button */}
-                    <div className="flex flex-col items-end">
+                    <div className="flex sm:flex-col items-stretch sm:items-end shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
                       <button
                         onClick={() => handleBook(rec.equipmentId)}
-                        className="px-3.5 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-bold flex items-center space-x-1.5 shadow-sm transition-all whitespace-nowrap"
+                        className="w-full sm:w-auto px-4 py-2 min-h-[44px] sm:min-h-[36px] bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm transition-all whitespace-nowrap"
                       >
                         <span>Book Slot</span>
                         <ArrowRight className="w-3.5 h-3.5" />

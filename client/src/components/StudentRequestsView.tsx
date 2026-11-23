@@ -25,7 +25,7 @@ export const StudentRequestsView: React.FC<StudentRequestsViewProps> = ({
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div>
           <div className="flex items-center space-x-2">
             <BookOpen className="w-6 h-6 text-teal-700" />
@@ -40,7 +40,7 @@ export const StudentRequestsView: React.FC<StudentRequestsViewProps> = ({
 
         <button
           onClick={onOpenBooking}
-          className="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-xs font-bold flex items-center space-x-1.5 shadow-sm transition-all"
+          className="w-full sm:w-auto px-4 py-2.5 min-h-[44px] sm:min-h-[36px] bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm transition-all"
         >
           <Plus className="w-4 h-4" />
           <span>New Equipment Request</span>
@@ -86,10 +86,10 @@ export const StudentRequestsView: React.FC<StudentRequestsViewProps> = ({
             return (
               <div
                 key={req.id}
-                className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-slate-300 transition-all"
+                className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-slate-300 transition-all"
               >
                 <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100">
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 flex-wrap gap-y-1">
                     <span className={`text-[11px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full border flex items-center space-x-1 ${statusStyle}`}>
                       <StatusIcon className="w-3.5 h-3.5" />
                       <span>{req.status}</span>
@@ -99,7 +99,7 @@ export const StudentRequestsView: React.FC<StudentRequestsViewProps> = ({
                     </span>
                   </div>
 
-                  <div className="flex items-center space-x-3 text-xs text-slate-500">
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
                     <div className="flex items-center space-x-1">
                       <Calendar className="w-3.5 h-3.5" />
                       <span>{req.date} ({req.startTime} - {req.endTime})</span>
@@ -132,14 +132,14 @@ export const StudentRequestsView: React.FC<StudentRequestsViewProps> = ({
                   )}
 
                   {req.status === 'conflict' && (
-                    <div className="mt-3 p-3 bg-rose-50 border border-rose-200 rounded-xl flex items-center justify-between">
+                    <div className="mt-3 p-3 bg-rose-50 border border-rose-200 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
                       <div className="flex items-center space-x-2 text-xs text-rose-900 font-semibold">
-                        <AlertTriangle className="w-4 h-4 text-rose-600" />
+                        <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
                         <span>Scheduling conflict active. Switch to Faculty View to inspect or apply AI resolution.</span>
                       </div>
                       <button
                         onClick={onNavigateToConflict}
-                        className="px-3 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold"
+                        className="w-full sm:w-auto px-3.5 py-2 min-h-[44px] sm:min-h-[32px] bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold shrink-0 flex items-center justify-center"
                       >
                         View Conflict
                       </button>
