@@ -77,33 +77,33 @@ export const AIProjectAssistantModal: React.FC<AIProjectAssistantModalProps> = (
 
   return (
     <div
-      className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4"
+      className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 dark:bg-black/80 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="ai-assistant-title"
     >
-      <div className="relative bg-white rounded-2xl w-[95vw] max-w-2xl max-h-[90vh] overflow-y-auto p-4 sm:p-6 shadow-2xl border border-slate-200 my-auto">
+      <div className="relative bg-white dark:bg-slate-900 rounded-2xl w-[95vw] max-w-2xl max-h-[90vh] overflow-y-auto p-4 sm:p-6 shadow-2xl border border-slate-200 dark:border-slate-800 my-auto">
         {/* Top Header */}
-        <div className="flex items-start justify-between pb-4 border-b border-slate-100">
+        <div className="flex items-start justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-teal-500 to-cyan-500 flex items-center justify-center text-white shadow-md shadow-teal-500/20">
               <Sparkles className="w-5 h-5 animate-pulse" />
             </div>
             <div>
-              <h2 id="ai-assistant-title" className="text-xl font-bold text-slate-900 flex items-center space-x-2">
+              <h2 id="ai-assistant-title" className="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center space-x-2">
                 <span>GenAI Project Assistant</span>
-                <span className="text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded bg-teal-100 text-teal-800">
+                <span className="text-[10px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded bg-teal-100 dark:bg-teal-900/50 text-teal-800 dark:text-teal-300">
                   Intelligent Matching
                 </span>
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-500 dark:text-slate-400">
                 Describe your project requirements in plain English to get ranked campus equipment recommendations.
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-600 rounded-lg p-1.5 hover:bg-slate-100 transition-colors"
+            className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             aria-label="Close dialog"
           >
             <X className="w-5 h-5" />
@@ -112,7 +112,7 @@ export const AIProjectAssistantModal: React.FC<AIProjectAssistantModalProps> = (
 
         {/* Input Form */}
         <div className="mt-4">
-          <label htmlFor="ai-prompt-input" className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
+          <label htmlFor="ai-prompt-input" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
             Describe what you want to build or measure
           </label>
           <div className="relative">
@@ -122,7 +122,7 @@ export const AIProjectAssistantModal: React.FC<AIProjectAssistantModalProps> = (
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="e.g. I need to train a vision model and deploy it on a drone before Friday..."
-              className="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 pb-12 sm:pb-2.5 sm:pr-36 text-sm text-slate-900 placeholder-slate-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all resize-none"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 px-3.5 py-2.5 pb-12 sm:pb-2.5 sm:pr-36 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all resize-none"
             />
             <button
               onClick={() => handleSubmit()}
@@ -145,13 +145,13 @@ export const AIProjectAssistantModal: React.FC<AIProjectAssistantModalProps> = (
 
           {/* Quick Suggestion Pills */}
           <div className="mt-2.5">
-            <span className="text-[11px] font-medium text-slate-500 mr-2">Try examples:</span>
+            <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 mr-2">Try examples:</span>
             <div className="inline-flex flex-wrap gap-1.5 mt-1">
               {SAMPLE_PROMPTS.map((sample, idx) => (
                 <button
                   key={idx}
                   onClick={() => handleSubmit(sample)}
-                  className="text-xs px-2.5 py-1 bg-slate-100 hover:bg-teal-50 hover:text-teal-800 text-slate-700 rounded-lg transition-colors border border-slate-200"
+                  className="text-xs px-2.5 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-teal-50 dark:hover:bg-slate-700 hover:text-teal-800 dark:hover:text-teal-300 text-slate-700 dark:text-slate-300 rounded-lg transition-colors border border-slate-200 dark:border-slate-700"
                 >
                   {sample}
                 </button>
@@ -162,30 +162,30 @@ export const AIProjectAssistantModal: React.FC<AIProjectAssistantModalProps> = (
 
         {/* Error message */}
         {error && (
-          <div className="mt-4 p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-xs">
+          <div className="mt-4 p-3 rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300 text-xs">
             {error}
           </div>
         )}
 
         {/* Results Area */}
         {result && (
-          <div className="mt-6 border-t border-slate-200 pt-4">
+          <div className="mt-6 border-t border-slate-200 dark:border-slate-800 pt-4">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center space-x-2">
-                <Bot className="w-4 h-4 text-teal-600" />
-                <span className="text-xs font-semibold uppercase tracking-wider text-slate-600">
+                <Bot className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+                <span className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">
                   AI Recommendations ({result.recommendations.length} matched)
                 </span>
               </div>
-              <span className="text-[11px] px-2 py-0.5 rounded-full font-medium bg-slate-100 text-slate-700">
+              <span className="text-[11px] px-2 py-0.5 rounded-full font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
                 Engine:{' '}
-                <strong className={result.source === 'gemini' ? 'text-teal-700' : 'text-slate-800'}>
+                <strong className={result.source === 'gemini' ? 'text-teal-700 dark:text-teal-400' : 'text-slate-800 dark:text-slate-200'}>
                   {result.source === 'gemini' ? (result.modelUsed || 'Gemini 2.5 Flash') : 'Deterministic Scheduler'}
                 </strong>
               </span>
             </div>
 
-            <p className="text-xs text-slate-600 mb-4 bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+            <p className="text-xs text-slate-600 dark:text-slate-300 mb-4 bg-slate-50 dark:bg-slate-950 p-2.5 rounded-lg border border-slate-200 dark:border-slate-800">
               {result.analysisSummary}
             </p>
 
@@ -193,30 +193,30 @@ export const AIProjectAssistantModal: React.FC<AIProjectAssistantModalProps> = (
               {result.recommendations.map((rec, idx) => (
                 <div
                   key={idx}
-                  className="p-3.5 sm:p-4 rounded-xl border border-slate-200 bg-white hover:border-teal-400 hover:shadow-md transition-all group"
+                  className="p-3.5 sm:p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 hover:border-teal-400 dark:hover:border-teal-500 hover:shadow-md transition-all group"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center space-x-2 flex-wrap gap-y-1">
-                        <span className="px-2 py-0.5 rounded-md text-[11px] font-bold bg-teal-100 text-teal-800">
+                        <span className="px-2 py-0.5 rounded-md text-[11px] font-bold bg-teal-100 dark:bg-teal-900/50 text-teal-800 dark:text-teal-300">
                           {rec.matchScore}% Match
                         </span>
-                        <span className="px-2 py-0.5 rounded-md text-[11px] font-medium bg-slate-100 text-slate-700">
+                        <span className="px-2 py-0.5 rounded-md text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
                           {rec.department}
                         </span>
-                        <span className="px-2 py-0.5 rounded-md text-[11px] font-medium bg-slate-100 text-slate-700">
+                        <span className="px-2 py-0.5 rounded-md text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
                           {rec.category}
                         </span>
                       </div>
-                      <h3 className="text-sm font-bold text-slate-900 mt-1.5 group-hover:text-teal-700 transition-colors">
+                      <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 mt-1.5 group-hover:text-teal-700 dark:group-hover:text-teal-400 transition-colors">
                         {rec.equipmentName}
                       </h3>
-                      <div className="flex items-center space-x-1 text-xs text-slate-500 mt-0.5">
+                      <div className="flex items-center space-x-1 text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                         <MapPin className="w-3.5 h-3.5 text-slate-400" />
                         <span>{rec.labRoom}</span>
                       </div>
 
-                      <p className="text-xs text-slate-700 mt-2 font-medium leading-relaxed">
+                      <p className="text-xs text-slate-700 dark:text-slate-300 mt-2 font-medium leading-relaxed">
                         {rec.matchReason}
                       </p>
 
@@ -225,20 +225,20 @@ export const AIProjectAssistantModal: React.FC<AIProjectAssistantModalProps> = (
                         {rec.highlightedSpecs.map((spec, sIdx) => (
                           <span
                             key={sIdx}
-                            className="text-[11px] px-2 py-0.5 rounded bg-teal-50 text-teal-800 border border-teal-200/60 font-mono"
+                            className="text-[11px] px-2 py-0.5 rounded bg-teal-50 dark:bg-teal-950/60 text-teal-800 dark:text-teal-300 border border-teal-200/60 dark:border-teal-800/60 font-mono"
                           >
                             {spec}
                           </span>
                         ))}
                       </div>
 
-                      <p className="text-[11px] text-slate-500 mt-2 italic">
+                      <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-2 italic">
                         💡 {rec.suggestedUsage}
                       </p>
                     </div>
 
                     {/* Book button */}
-                    <div className="flex sm:flex-col items-stretch sm:items-end shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
+                    <div className="flex sm:flex-col items-stretch sm:items-end shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-slate-800">
                       <button
                         onClick={() => handleBook(rec.equipmentId)}
                         className="w-full sm:w-auto px-4 py-2 min-h-[44px] sm:min-h-[36px] bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm transition-all whitespace-nowrap"

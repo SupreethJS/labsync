@@ -106,10 +106,10 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
       {/* Active Conflicts List */}
       <h2 className="sr-only">Active Laboratory Conflicts List</h2>
       {activeConflicts.length === 0 ? (
-        <div className="p-8 text-center bg-white rounded-2xl border border-slate-200 shadow-sm">
+        <div className="p-8 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
           <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto mb-3" />
-          <h3 className="text-base font-bold text-slate-900">All Laboratory Conflicts Resolved!</h3>
-          <p className="text-xs text-slate-500 max-w-md mx-auto mt-1">
+          <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">All Laboratory Conflicts Resolved!</h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400 max-w-md mx-auto mt-1">
             There are currently no active booking overlaps. To re-seed the test conflicts for evaluation, click the "Reset Demo Data" button in the top navigation bar.
           </p>
         </div>
@@ -123,35 +123,35 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
             return (
               <div
                 key={conflict.id}
-                className="bg-white rounded-2xl border border-rose-200 shadow-md overflow-hidden transition-all"
+                className="bg-white dark:bg-slate-900 rounded-2xl border border-rose-200 dark:border-rose-900/60 shadow-md overflow-hidden transition-all"
               >
                 {/* Conflict Bar Header */}
-                <div className="bg-gradient-to-r from-rose-50 via-amber-50 to-white px-4 sm:px-6 py-3.5 sm:py-4 border-b border-rose-200 flex flex-wrap items-center justify-between gap-3">
+                <div className="bg-gradient-to-r from-rose-50 via-amber-50 to-white dark:from-rose-950/40 dark:via-amber-950/20 dark:to-slate-900 px-4 sm:px-6 py-3.5 sm:py-4 border-b border-rose-200 dark:border-rose-900/40 flex flex-wrap items-center justify-between gap-3">
                   <div className="flex items-center space-x-3">
                     <div className="w-9 h-9 rounded-xl bg-rose-600 text-white flex items-center justify-center font-bold shadow-sm">
                       #{cIdx + 1}
                     </div>
                     <div>
                       <div className="flex items-center space-x-2">
-                        <span className="text-xs font-bold uppercase tracking-wider text-rose-700">
+                        <span className="text-xs font-bold uppercase tracking-wider text-rose-700 dark:text-rose-400">
                           High-Demand Overlap
                         </span>
-                        <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-rose-100 text-rose-800">
+                        <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300">
                           Active Conflict
                         </span>
                       </div>
-                      <h3 className="text-base font-extrabold text-slate-900">
+                      <h3 className="text-base font-extrabold text-slate-900 dark:text-slate-100">
                         {conflict.equipmentName}
                       </h3>
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-slate-600">
-                    <div className="flex items-center space-x-1 bg-white px-2.5 py-1 rounded-md border border-slate-200">
-                      <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                  <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-slate-600 dark:text-slate-400">
+                    <div className="flex items-center space-x-1 bg-white dark:bg-slate-800 px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-700">
+                      <Calendar className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                       <span>{conflict.date}</span>
                     </div>
-                    <div className="flex items-center space-x-1 bg-rose-100 text-rose-900 px-2.5 py-1 rounded-md border border-rose-200 font-bold">
+                    <div className="flex items-center space-x-1 bg-rose-100 dark:bg-rose-950/80 text-rose-900 dark:text-rose-200 px-2.5 py-1 rounded-md border border-rose-200 dark:border-rose-800 font-bold">
                       <Clock className="w-3.5 h-3.5" />
                       <span>
                         Overlap: {conflict.overlappingSlot.startTime} - {conflict.overlappingSlot.endTime}
@@ -162,33 +162,33 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
 
                 {/* Competing Requests Side-by-Side Comparison */}
                 <div className="p-4 sm:p-6">
-                  <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center space-x-1.5">
-                    <Layers className="w-4 h-4 text-slate-400" />
+                  <div className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3 flex items-center space-x-1.5">
+                    <Layers className="w-4 h-4 text-slate-400 dark:text-slate-500" />
                     <span>Competing Student Access Requests</span>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Request A */}
-                    <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 flex flex-col justify-between">
+                    <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/60 flex flex-col justify-between">
                       <div>
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-bold text-slate-900">
+                          <span className="text-xs font-bold text-slate-900 dark:text-slate-100">
                             {conflict.requestA.studentName}
                           </span>
-                          <span className="text-[11px] px-2 py-0.5 rounded bg-teal-100 text-teal-800 font-semibold">
+                          <span className="text-[11px] px-2 py-0.5 rounded bg-teal-100 dark:bg-teal-900/50 text-teal-800 dark:text-teal-300 font-semibold">
                             {conflict.requestA.department}
                           </span>
                         </div>
-                        <p className="text-xs font-semibold text-teal-900 mt-1">
+                        <p className="text-xs font-semibold text-teal-900 dark:text-teal-300 mt-1">
                           "{conflict.requestA.projectTitle}"
                         </p>
-                        <p className="text-xs text-slate-600 mt-2 bg-white p-2.5 rounded-lg border border-slate-200 leading-relaxed">
+                        <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 bg-white dark:bg-slate-900 p-2.5 rounded-lg border border-slate-200 dark:border-slate-800 leading-relaxed">
                           {conflict.requestA.projectRequirements}
                         </p>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-slate-200 flex items-center justify-between text-xs">
-                        <div className="flex items-center space-x-1 text-slate-500">
+                      <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
+                        <div className="flex items-center space-x-1 text-slate-500 dark:text-slate-400">
                           <Clock className="w-3.5 h-3.5" />
                           <span>
                             Slot: {conflict.requestA.startTime} - {conflict.requestA.endTime}
@@ -196,7 +196,7 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
                         </div>
                         <div className="flex items-center space-x-1 font-bold">
                           <Calendar className="w-3.5 h-3.5 text-rose-500" />
-                          <span className="text-rose-700">
+                          <span className="text-rose-700 dark:text-rose-400">
                             Deadline: {conflict.requestA.projectDeadline}
                           </span>
                         </div>
@@ -204,34 +204,34 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
                     </div>
 
                     {/* Request B */}
-                    <div className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 flex flex-col justify-between">
+                    <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/60 flex flex-col justify-between">
                       <div>
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-bold text-slate-900">
+                          <span className="text-xs font-bold text-slate-900 dark:text-slate-100">
                             {conflict.requestB.studentName}
                           </span>
-                          <span className="text-[11px] px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-semibold">
+                          <span className="text-[11px] px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 font-semibold">
                             {conflict.requestB.department}
                           </span>
                         </div>
-                        <p className="text-xs font-semibold text-blue-900 mt-1">
+                        <p className="text-xs font-semibold text-blue-900 dark:text-blue-300 mt-1">
                           "{conflict.requestB.projectTitle}"
                         </p>
-                        <p className="text-xs text-slate-600 mt-2 bg-white p-2.5 rounded-lg border border-slate-200 leading-relaxed">
+                        <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 bg-white dark:bg-slate-900 p-2.5 rounded-lg border border-slate-200 dark:border-slate-800 leading-relaxed">
                           {conflict.requestB.projectRequirements}
                         </p>
                       </div>
 
-                      <div className="mt-3 pt-3 border-t border-slate-200 flex items-center justify-between text-xs">
-                        <div className="flex items-center space-x-1 text-slate-500">
+                      <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
+                        <div className="flex items-center space-x-1 text-slate-500 dark:text-slate-400">
                           <Clock className="w-3.5 h-3.5" />
                           <span>
                             Slot: {conflict.requestB.startTime} - {conflict.requestB.endTime}
                           </span>
                         </div>
                         <div className="flex items-center space-x-1 font-bold">
-                          <Calendar className="w-3.5 h-3.5 text-slate-500" />
-                          <span className="text-slate-700">
+                          <Calendar className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+                          <span className="text-slate-700 dark:text-slate-300">
                             Deadline: {conflict.requestB.projectDeadline}
                           </span>
                         </div>
@@ -241,8 +241,8 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
 
                   {/* Action / Resolution Output Area */}
                   {!plan ? (
-                    <div className="mt-6 pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
-                      <p className="text-xs text-slate-500">
+                    <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+                      <p className="text-xs text-slate-500 dark:text-slate-400">
                         Click below to run multi-factor heuristic and Gemini reasoning over deadlines, requirements, and hardware alternatives.
                       </p>
                       <button
@@ -265,69 +265,69 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
                     </div>
                   ) : (
                     /* AI Structured Recommendation Card */
-                    <div className="mt-6 pt-4 border-t border-slate-200 space-y-4">
+                    <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 space-y-4">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
-                          <Sparkles className="w-4 h-4 text-teal-600" />
-                          <h4 className="text-xs font-bold uppercase tracking-wider text-teal-900">
+                          <Sparkles className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-teal-900 dark:text-teal-300">
                             AI Fairness Recommendation & Allocation Plan
                           </h4>
                         </div>
-                        <span className="text-[11px] px-2.5 py-0.5 rounded-full font-semibold bg-teal-100 text-teal-800 border border-teal-200">
+                        <span className="text-[11px] px-2.5 py-0.5 rounded-full font-semibold bg-teal-100 dark:bg-teal-900/50 text-teal-800 dark:text-teal-300 border border-teal-200 dark:border-teal-800">
                           Source: {plan.source === 'gemini' ? (plan.modelUsed || 'Gemini 2.5 Flash') : 'Smart Heuristics Fallback'}
                         </span>
                       </div>
 
                       {/* Summary Banner */}
-                      <div className="p-3 bg-teal-50 border border-teal-200 rounded-xl text-xs text-teal-950 font-medium leading-relaxed">
+                      <div className="p-3 bg-teal-50 dark:bg-teal-950/50 border border-teal-200 dark:border-teal-800 rounded-xl text-xs text-teal-950 dark:text-teal-200 font-medium leading-relaxed">
                         <strong>Plan Summary:</strong> {plan.recommendedPlanSummary}
                       </div>
 
                       {/* Two Plan Cards: Priority vs Alternative */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {/* Priority Card */}
-                        <div className="p-4 rounded-xl border-2 border-emerald-500 bg-emerald-50/40">
+                        <div className="p-4 rounded-xl border-2 border-emerald-500 dark:border-emerald-600 bg-emerald-50/40 dark:bg-emerald-950/30">
                           <div className="flex items-center space-x-2">
                             <span className="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-bold">
                               ✓
                             </span>
-                            <span className="text-xs font-bold uppercase tracking-wider text-emerald-900">
+                            <span className="text-xs font-bold uppercase tracking-wider text-emerald-900 dark:text-emerald-300">
                               Priority Awarded: {plan.priorityRequest.studentName}
                             </span>
                           </div>
-                          <p className="text-xs font-semibold text-emerald-950 mt-1">
+                          <p className="text-xs font-semibold text-emerald-950 dark:text-emerald-200 mt-1">
                             "{plan.priorityRequest.projectTitle}"
                           </p>
-                          <div className="mt-2 text-xs text-emerald-900 space-y-1">
+                          <div className="mt-2 text-xs text-emerald-900 dark:text-emerald-300 space-y-1">
                             <p>
                               <strong>Allocated Slot:</strong> {plan.priorityRequest.allocatedSlot.date}{' '}
                               ({plan.priorityRequest.allocatedSlot.startTime} -{' '}
                               {plan.priorityRequest.allocatedSlot.endTime})
                             </p>
-                            <p className="italic text-emerald-800 text-[11px]">
+                            <p className="italic text-emerald-800 dark:text-emerald-400 text-[11px]">
                               <strong>Rationale:</strong> {plan.priorityRequest.rationale}
                             </p>
                           </div>
                         </div>
 
                         {/* Secondary Card */}
-                        <div className="p-4 rounded-xl border-2 border-cyan-500 bg-cyan-50/40">
+                        <div className="p-4 rounded-xl border-2 border-cyan-500 dark:border-cyan-600 bg-cyan-50/40 dark:bg-cyan-950/30">
                           <div className="flex items-center space-x-2">
                             <span className="w-5 h-5 rounded-full bg-cyan-600 text-white flex items-center justify-center text-xs font-bold">
                               ⇄
                             </span>
-                            <span className="text-xs font-bold uppercase tracking-wider text-cyan-900">
+                            <span className="text-xs font-bold uppercase tracking-wider text-cyan-900 dark:text-cyan-300">
                               Fair Accommodation: {plan.secondaryRequest.studentName}
                             </span>
                           </div>
-                          <p className="text-xs font-semibold text-cyan-950 mt-1">
+                          <p className="text-xs font-semibold text-cyan-950 dark:text-cyan-200 mt-1">
                             "{plan.secondaryRequest.projectTitle}"
                           </p>
-                          <div className="mt-2 text-xs text-cyan-900 space-y-1">
+                          <div className="mt-2 text-xs text-cyan-900 dark:text-cyan-300 space-y-1">
                             {plan.secondaryRequest.proposedAlternative.type === 'alternative_equipment' ? (
                               <p>
                                 <strong>Alternative Kit:</strong>{' '}
-                                <span className="font-semibold text-cyan-950">
+                                <span className="font-semibold text-cyan-950 dark:text-cyan-100">
                                   {plan.secondaryRequest.proposedAlternative.alternativeEquipmentName}
                                 </span>
                               </p>
@@ -339,7 +339,7 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
                                 {plan.secondaryRequest.proposedAlternative.allocatedSlot?.endTime})
                               </p>
                             )}
-                            <p className="italic text-cyan-800 text-[11px]">
+                            <p className="italic text-cyan-800 dark:text-cyan-400 text-[11px]">
                               <strong>Notes:</strong> {plan.secondaryRequest.proposedAlternative.notes}
                             </p>
                           </div>
@@ -347,8 +347,8 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
                       </div>
 
                       {/* Fairness Justification */}
-                      <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700">
-                        <strong className="text-slate-900">Academic Fairness Justification:</strong>{' '}
+                      <div className="p-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs text-slate-700 dark:text-slate-300">
+                        <strong className="text-slate-900 dark:text-slate-100">Academic Fairness Justification:</strong>{' '}
                         {plan.fairnessJustification}
                       </div>
 
@@ -357,7 +357,7 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
                         <button
                           onClick={() => handleResolveWithAI(conflict.id)}
                           disabled={isResolving}
-                          className="w-full sm:w-auto px-4 py-2.5 min-h-[44px] sm:min-h-[38px] text-slate-600 hover:text-slate-900 text-xs font-semibold rounded-lg hover:bg-slate-100 transition-colors flex items-center justify-center space-x-1 border border-slate-200 sm:border-transparent"
+                          className="w-full sm:w-auto px-4 py-2.5 min-h-[44px] sm:min-h-[38px] text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 text-xs font-semibold rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center justify-center space-x-1 border border-slate-200 dark:border-slate-700 sm:border-transparent"
                         >
                           <RefreshCw className={`w-3.5 h-3.5 ${isResolving ? 'animate-spin' : ''}`} />
                           <span>Re-evaluate</span>
@@ -395,7 +395,7 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
         <div className="mt-8">
           <div className="flex items-center space-x-2 mb-3">
             <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-            <h2 className="text-xs font-bold uppercase tracking-wider text-slate-600">
+            <h2 className="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400">
               Successfully Resolved Conflicts ({resolvedConflicts.length})
             </h2>
           </div>
@@ -404,20 +404,20 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
             {resolvedConflicts.map((conf) => (
               <div
                 key={conf.id}
-                className="p-4 bg-white rounded-xl border border-slate-200 flex flex-wrap items-center justify-between gap-3 text-xs"
+                className="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs"
               >
                 <div>
                   <div className="flex items-center space-x-2">
-                    <span className="font-bold text-slate-900">{conf.equipmentName}</span>
-                    <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[10px]">
+                    <span className="font-bold text-slate-900 dark:text-slate-100">{conf.equipmentName}</span>
+                    <span className="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300 font-bold text-[10px]">
                       Resolved
                     </span>
                   </div>
-                  <p className="text-slate-500 mt-0.5">
+                  <p className="text-slate-500 dark:text-slate-400 mt-0.5">
                     {conf.requestA.studentName} vs {conf.requestB.studentName} &bull; Overlap resolved via AI fair allocation.
                   </p>
                 </div>
-                <div className="text-slate-400 text-[11px]">
+                <div className="text-slate-400 dark:text-slate-500 text-[11px]">
                   Date: {conf.date}
                 </div>
               </div>

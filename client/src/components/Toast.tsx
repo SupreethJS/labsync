@@ -23,22 +23,22 @@ export const ToastContainer: React.FC<ToastProps> = ({ toasts, onDismiss }) => {
       aria-atomic="true"
     >
       {toasts.map((toast) => {
-        let bg = 'bg-white border-slate-200 text-slate-800';
+        let bg = 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-100';
         let Icon = Info;
-        let iconColor = 'text-blue-500';
+        let iconColor = 'text-blue-500 dark:text-blue-400';
 
         if (toast.type === 'success') {
-          bg = 'bg-emerald-50 border-emerald-200 text-emerald-900';
+          bg = 'bg-emerald-50 dark:bg-emerald-950/80 border-emerald-200 dark:border-emerald-800 text-emerald-900 dark:text-emerald-100';
           Icon = CheckCircle2;
-          iconColor = 'text-emerald-600';
+          iconColor = 'text-emerald-600 dark:text-emerald-400';
         } else if (toast.type === 'error') {
-          bg = 'bg-rose-50 border-rose-200 text-rose-900';
+          bg = 'bg-rose-50 dark:bg-rose-950/80 border-rose-200 dark:border-rose-800 text-rose-900 dark:text-rose-100';
           Icon = AlertCircle;
-          iconColor = 'text-rose-600';
+          iconColor = 'text-rose-600 dark:text-rose-400';
         } else if (toast.type === 'warning') {
-          bg = 'bg-amber-50 border-amber-200 text-amber-900';
+          bg = 'bg-amber-50 dark:bg-amber-950/80 border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-100';
           Icon = AlertCircle;
-          iconColor = 'text-amber-600';
+          iconColor = 'text-amber-600 dark:text-amber-400';
         }
 
         return (
@@ -51,12 +51,12 @@ export const ToastContainer: React.FC<ToastProps> = ({ toasts, onDismiss }) => {
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold">{toast.title}</p>
               {toast.message && (
-                <p className="text-xs mt-0.5 text-slate-600 break-words">{toast.message}</p>
+                <p className="text-xs mt-0.5 text-slate-600 dark:text-slate-300 break-words">{toast.message}</p>
               )}
             </div>
             <button
               onClick={() => onDismiss(toast.id)}
-              className="text-slate-400 hover:text-slate-600 rounded-lg p-1 transition-colors"
+              className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg p-1 transition-colors"
               aria-label="Dismiss notification"
             >
               <X className="w-4 h-4" />

@@ -20,6 +20,40 @@ export function App() {
   const [role, setRole] = useState<'student' | 'faculty'>('student');
   const [activeTab, setActiveTab] = useState<string>('catalog');
 
+  // Theme State (Light / Dark)
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    try {
+      const stored = localStorage.getItem('labsync-theme');
+      if (stored === 'dark' || stored === 'light') return stored;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    } catch {
+      return 'light';
+    }
+  });
+
+  const toggleTheme = () => {
+    setTheme((prev) => {
+      const next = prev === 'light' ? 'dark' : 'light';
+      try {
+        localStorage.setItem('labsync-theme', next);
+      } catch {}
+      if (next === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      return next;
+    });
+  };
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
+
   // Core Data
   const [equipmentList, setEquipmentList] = useState<Equipment[]>([]);
   const [requests, setRequests] = useState<AccessRequest[]>([]);
@@ -112,7 +146,7 @@ export function App() {
   const pendingRequestCount = requests.filter((r) => r.status === 'pending').length;
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
+    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans overflow-x-hidden max-w-full transition-colors duration-200">
       {/* WCAG AA: Skip to main content link for screen reader and keyboard accessibility */}
       <a
         href="#main-content"
@@ -132,10 +166,12 @@ export function App() {
         activeConflictCount={activeConflictCount}
         pendingRequestCount={pendingRequestCount}
         geminiActive={geminiActive}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
 
       {/* Main Content Area */}
-      <main id="main-content" className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <main id="main-content" className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8 overflow-x-hidden">
         {/* Student Views */}
         {role === 'student' && activeTab === 'catalog' && (
           <section aria-label="Equipment Catalog">
@@ -197,10 +233,10 @@ export function App() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-slate-200 py-6 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3 text-center sm:text-left">
+      <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-6 mt-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 gap-3 text-center sm:text-left">
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5">
-            <span className="font-bold text-teal-800">LabSync</span>
+            <span className="font-bold text-teal-800 dark:text-teal-400">LabSync</span>
             <span>&bull;</span>
             <span>Campus Laboratory Resource-Sharing Platform</span>
           </div>

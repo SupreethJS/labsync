@@ -69,35 +69,35 @@ export const EquipmentCatalog: React.FC<EquipmentCatalogProps> = ({
   }, [equipmentList, selectedDept, selectedCategory, selectedStatus, search]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-full overflow-x-hidden">
       {/* Page Header (WCAG AA Strict Heading Hierarchy) */}
       <div>
-        <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 flex items-center space-x-2">
-          <Layers className="w-6 h-6 text-teal-700" />
+        <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center space-x-2">
+          <Layers className="w-6 h-6 text-teal-700 dark:text-teal-400" />
           <span>Cross-Department Equipment Discovery & Reservation</span>
         </h1>
-        <p className="text-xs text-slate-500 mt-1">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
           Explore specialized laboratory instruments across 5 engineering departments, check live slot availability, and reserve equipment for your research project.
         </p>
       </div>
       {/* Top AI Promotion Banner */}
-      <div className="bg-gradient-to-r from-teal-500/10 via-cyan-500/10 to-teal-500/5 p-5 rounded-2xl border border-teal-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-teal-600 text-white flex items-center justify-center shadow-sm shrink-0">
+      <div className="bg-gradient-to-r from-teal-500/10 via-cyan-500/10 to-teal-500/5 dark:from-teal-950/40 dark:via-cyan-950/30 dark:to-teal-950/20 p-5 rounded-2xl border border-teal-200 dark:border-teal-800/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="flex items-center space-x-3 min-w-0">
+          <div className="w-10 h-10 rounded-xl bg-teal-600 dark:bg-teal-500 text-white flex items-center justify-center shadow-sm shrink-0">
             <Sparkles className="w-5 h-5" />
           </div>
-          <div>
-            <h2 className="text-sm font-bold text-slate-900">
+          <div className="min-w-0">
+            <h2 className="text-sm font-bold text-slate-900 dark:text-slate-100">
               Not sure which equipment meets your research requirements?
             </h2>
-            <p className="text-xs text-slate-600 mt-0.5">
+            <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
               Ask our GenAI Project Assistant in plain English to recommend compatible instruments across all 5 departments.
             </p>
           </div>
         </div>
         <button
           onClick={onOpenAIAssistant}
-          className="w-full sm:w-auto px-4 py-2.5 min-h-[44px] sm:min-h-[36px] bg-teal-700 hover:bg-teal-800 text-white rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm transition-all shrink-0"
+          className="w-full sm:w-auto px-4 py-2.5 min-h-[44px] sm:min-h-[36px] bg-teal-700 hover:bg-teal-800 dark:bg-teal-600 dark:hover:bg-teal-700 text-white rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5 shadow-sm transition-all shrink-0"
         >
           <Sparkles className="w-4 h-4 text-cyan-200" />
           <span>Find Equipment with AI</span>
@@ -105,7 +105,7 @@ export const EquipmentCatalog: React.FC<EquipmentCatalogProps> = ({
       </div>
 
       {/* Search & Filter Toolbar */}
-      <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+      <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {/* Search bar */}
           <div className="relative sm:col-span-2">
@@ -119,12 +119,12 @@ export const EquipmentCatalog: React.FC<EquipmentCatalogProps> = ({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search by equipment name, GPU, FPGA, sensor specs, room number..."
-              className="w-full rounded-xl border border-slate-300 pl-10 pr-9 py-2 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 pl-10 pr-9 py-2 text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 bg-white dark:bg-slate-950 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20"
             />
             {search && (
               <button
                 onClick={() => setSearch('')}
-                className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 focus-visible:ring-2 focus-visible:ring-teal-600 rounded p-0.5"
+                className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus-visible:ring-2 focus-visible:ring-teal-600 rounded p-0.5"
                 aria-label="Clear search query"
               >
                 <X className="w-4 h-4" />
@@ -141,7 +141,7 @@ export const EquipmentCatalog: React.FC<EquipmentCatalogProps> = ({
               id="catalog-category-filter"
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm text-slate-700 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 font-medium"
+              className="w-full rounded-xl border border-slate-300 dark:border-slate-700 px-3 py-2 text-xs sm:text-sm text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-950 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 font-medium"
             >
               {CATEGORIES.map((cat) => (
                 <option key={cat} value={cat}>
@@ -153,9 +153,9 @@ export const EquipmentCatalog: React.FC<EquipmentCatalogProps> = ({
         </div>
 
         {/* Department Filter Pills */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-2 border-t border-slate-100">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-2 border-t border-slate-100 dark:border-slate-800">
           <div className="flex flex-wrap items-center gap-1.5">
-            <span className="text-xs font-semibold text-slate-500 mr-1 hidden sm:inline">
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 mr-1 hidden sm:inline">
               Department:
             </span>
             {DEPARTMENTS.map((dept) => (
@@ -164,8 +164,8 @@ export const EquipmentCatalog: React.FC<EquipmentCatalogProps> = ({
                 onClick={() => setSelectedDept(dept)}
                 className={`min-h-[34px] sm:min-h-[28px] px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold flex items-center justify-center transition-all ${
                   selectedDept === dept
-                    ? 'bg-teal-700 text-white shadow-xs'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                    ? 'bg-teal-700 dark:bg-teal-600 text-white shadow-xs'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
                 }`}
               >
                 {dept}
@@ -173,7 +173,7 @@ export const EquipmentCatalog: React.FC<EquipmentCatalogProps> = ({
             ))}
           </div>
 
-          <div className="text-xs text-slate-500 font-medium">
+          <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
             Showing <strong>{filtered.length}</strong> of {equipmentList.length} items
           </div>
         </div>
@@ -181,10 +181,10 @@ export const EquipmentCatalog: React.FC<EquipmentCatalogProps> = ({
 
       {/* Equipment Cards Grid */}
       {filtered.length === 0 ? (
-        <div className="p-12 text-center bg-white rounded-2xl border border-slate-200 shadow-sm">
+        <div className="p-12 text-center bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
           <Layers className="w-12 h-12 text-slate-400 mx-auto mb-3" />
-          <h3 className="text-base font-bold text-slate-900">No equipment matches your search</h3>
-          <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
+          <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">No equipment matches your search</h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">
             Try adjusting your search query, clearing department filters, or using the GenAI Project Assistant.
           </p>
           <button
@@ -194,7 +194,7 @@ export const EquipmentCatalog: React.FC<EquipmentCatalogProps> = ({
               setSelectedCategory('All');
               setSelectedStatus('All');
             }}
-            className="mt-4 px-4 py-2 text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition-colors"
+            className="mt-4 px-4 py-2 text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg transition-colors"
           >
             Reset Filters
           </button>
