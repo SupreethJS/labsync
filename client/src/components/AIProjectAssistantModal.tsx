@@ -21,11 +21,43 @@ interface AIProjectAssistantModalProps {
   userDepartment?: string;
 }
 
-const SAMPLE_PROMPTS = [
-  'I need to train a vision model and deploy it on a drone before Friday',
-  'Fine-tuning 70B parameter medical LLM on clinical trial EHRs',
-  'High-speed carbon-fiber 3D print for racecar suspension bracket',
-  'High-frequency RF signal analysis & CAN serial bus debugging',
+interface SamplePromptChip {
+  id: string;
+  icon: React.ElementType;
+  label: string;
+  query: string;
+  category: string;
+}
+
+const SAMPLE_PROMPT_CHIPS: SamplePromptChip[] = [
+  {
+    id: 'drone-vision',
+    icon: Sparkles,
+    label: 'Deploy a real-time vision model on a drone',
+    query: 'I need to train a vision model and deploy it on a drone before Friday',
+    category: 'Edge AI / Jetson',
+  },
+  {
+    id: 'pcb-signals',
+    icon: Cpu,
+    label: 'Debug I2C/SPI signals on a custom PCB',
+    query: 'Debug high-frequency I2C and SPI digital signals on a custom PCB',
+    category: 'Signals / Oscilloscope',
+  },
+  {
+    id: '3d-mount',
+    icon: Layers,
+    label: 'Rapid-prototype a 3D printed robot mount',
+    query: 'Rapid-prototype a high-strength 3D printed carbon-fiber robot motor mount',
+    category: '3D Prototyping',
+  },
+  {
+    id: 'llm-compute',
+    icon: Bot,
+    label: 'Fine-tune 70B parameter medical LLM on clinical EHRs',
+    query: 'Fine-tuning 70B parameter medical LLM on clinical trial EHRs with high VRAM workstation',
+    category: 'High-VRAM Compute',
+  },
 ];
 
 export const AIProjectAssistantModal: React.FC<AIProjectAssistantModalProps> = ({
@@ -143,19 +175,37 @@ export const AIProjectAssistantModal: React.FC<AIProjectAssistantModalProps> = (
             </button>
           </div>
 
-          {/* Quick Suggestion Pills */}
-          <div className="mt-2.5">
-            <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 mr-2">Try examples:</span>
-            <div className="inline-flex flex-wrap gap-1.5 mt-1">
-              {SAMPLE_PROMPTS.map((sample, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => handleSubmit(sample)}
-                  className="text-xs px-2.5 py-1 bg-slate-100 dark:bg-slate-800 hover:bg-teal-50 dark:hover:bg-slate-700 hover:text-teal-800 dark:hover:text-teal-300 text-slate-700 dark:text-slate-300 rounded-lg transition-colors border border-slate-200 dark:border-slate-700"
-                >
-                  {sample}
-                </button>
-              ))}
+          {/* 1-Click Sample Prompt Chips */}
+          <div className="mt-3">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-1.5">
+              1-Click Project Scenarios:
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {SAMPLE_PROMPT_CHIPS.map((chip) => {
+                const ChipIcon = chip.icon;
+                return (
+                  <button
+                    key={chip.id}
+                    onClick={() => handleSubmit(chip.query)}
+                    disabled={loading}
+                    className="p-2 sm:p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 hover:bg-teal-50 dark:hover:bg-slate-800 hover:border-teal-300 dark:hover:border-teal-700 text-left transition-all group flex items-start space-x-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 min-h-[44px]"
+                  >
+                    <div className="w-7 h-7 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-teal-600 dark:text-teal-400 group-hover:bg-teal-600 group-hover:text-white transition-colors shrink-0 mt-0.5">
+                      <ChipIcon className="w-3.5 h-3.5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center space-x-1.5 flex-wrap">
+                        <span className="text-[9px] font-bold uppercase px-1.5 py-0.2 rounded bg-teal-100 dark:bg-teal-950 text-teal-800 dark:text-teal-300">
+                          {chip.category}
+                        </span>
+                      </div>
+                      <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors mt-0.5 leading-snug break-words">
+                        {chip.label}
+                      </p>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>

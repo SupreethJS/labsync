@@ -11,6 +11,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { Equipment } from '../types/index.js';
+import { EquipmentIllustration } from './EquipmentIllustration.js';
 
 interface EquipmentCardProps {
   equipment: Equipment;
@@ -34,8 +35,42 @@ export const EquipmentCard: React.FC<EquipmentCardProps> = ({ equipment, onBook 
 
   const deptStyle = DEPT_BADGE_COLORS[equipment.department] || 'bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200';
 
+  // Calculate daily schedule slot status (9 AM - 6 PM, 9 1-hour slots)
+  const HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+  const slotStatus = HOURS.map((hour) => {
+    const isMaintenance = equipment.status === 'Maintenance';
+    if (isMaintenance) {
+      return { hour, status: 'maintenance', label: `${hour}:00 - ${hour + 1}:00 (Offline Maintenance)` };
+    }
+    const matchingBooking = equipment.slots.find((s) => {
+      const start = parseInt(s.startTime.split(':')[0], 10);
+      const end = parseInt(s.endTime.split(':')[0], 10);
+      return hour >= start && hour < end;
+    });
+    if (matchingBooking) {
+      return {
+        hour,
+        status: 'booked',
+        label: `${hour}:00 - ${hour + 1}:00: Reserved by ${matchingBooking.studentName} (${matchingBooking.department})`,
+      };
+    }
+    return {
+      hour,
+      status: 'open',
+      label: `${hour}:00 - ${hour + 1}:00: Open for reservation`,
+    };
+  });
+
+  const openHoursCount = slotStatus.filter((s) => s.status === 'open').length;
+
   return (
     <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between overflow-hidden group">
+      {/* Sleek Top Hardware Illustration Banner */}
+      <EquipmentIllustration
+        category={equipment.category}
+        department={equipment.department}
+      />
+
       <div className="p-4 sm:p-5">
         {/* Top Badges */}
         <div className="flex items-center justify-between gap-2 flex-wrap">
@@ -83,6 +118,66 @@ export const EquipmentCard: React.FC<EquipmentCardProps> = ({ equipment, onBook 
               +{equipment.tags.length - 4} more
             </span>
           )}
+        </div>
+
+        {/* Visual Daily Availability Strip (9 AM - 6 PM) */}
+        <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800">
+          <div className="flex items-center justify-between text-[11px] mb-1.5">
+            <span className="font-semibold text-slate-700 dark:text-slate-300 flex items-center space-x-1">
+              <Clock className="w-3 h-3 text-slate-400" />
+              <span>Today's Availability</span>
+            </span>
+            <span
+              className={`font-bold px-1.5 py-0.2 rounded text-[10px] ${
+                equipment.status === 'Maintenance'
+                  ? 'bg-rose-100 dark:bg-rose-950 text-rose-800 dark:text-rose-300'
+                  : openHoursCount > 0
+                  ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300'
+                  : 'bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300'
+              }`}
+            >
+              {equipment.status === 'Maintenance'
+                ? 'Offline'
+                : `${openHoursCount} of 9h Open`}
+            </span>
+          </div>
+
+          {/* Accessible 9 AM - 6 PM Bar */}
+          <div
+            className="grid grid-cols-9 gap-1 h-3 rounded-md overflow-hidden bg-slate-100 dark:bg-slate-800 p-0.5"
+            role="img"
+            aria-label={`Daily schedule from 9 AM to 6 PM: ${openHoursCount} of 9 hours open today`}
+          >
+            {slotStatus.map((slot) => (
+              <div
+                key={slot.hour}
+                title={slot.label}
+                className={`h-full rounded-xs transition-colors cursor-help ${
+                  slot.status === 'open'
+                    ? 'bg-emerald-500 dark:bg-emerald-400 hover:bg-emerald-600'
+                    : slot.status === 'maintenance'
+                    ? 'bg-rose-400 dark:bg-rose-600'
+                    : 'bg-amber-400 dark:bg-amber-500 hover:bg-amber-600'
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Time markers & Legend */}
+          <div className="flex items-center justify-between text-[9px] text-slate-400 dark:text-slate-500 mt-1 font-mono">
+            <span>9 AM</span>
+            <div className="flex items-center space-x-2 font-sans text-[10px]">
+              <span className="flex items-center space-x-0.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                <span>Open</span>
+              </span>
+              <span className="flex items-center space-x-0.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                <span>Booked</span>
+              </span>
+            </div>
+            <span>6 PM</span>
+          </div>
         </div>
       </div>
 

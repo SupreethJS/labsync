@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   BookOpen,
   Calendar,
@@ -8,8 +8,10 @@ import {
   CheckCircle2,
   XCircle,
   Plus,
+  ShieldCheck,
 } from 'lucide-react';
 import { AccessRequest } from '../types/index.js';
+import { LabPassModal } from './LabPassModal.js';
 
 interface StudentRequestsViewProps {
   requests: AccessRequest[];
@@ -22,6 +24,7 @@ export const StudentRequestsView: React.FC<StudentRequestsViewProps> = ({
   onOpenBooking,
   onNavigateToConflict,
 }) => {
+  const [selectedPassRequest, setSelectedPassRequest] = useState<AccessRequest | null>(null);
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -131,6 +134,22 @@ export const StudentRequestsView: React.FC<StudentRequestsViewProps> = ({
                     </div>
                   )}
 
+                  {req.status === 'approved' && (
+                    <div className="mt-3 p-3 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/80 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                      <div className="flex items-center space-x-2 text-xs text-emerald-900 dark:text-emerald-200 font-semibold">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                        <span>Official laboratory reservation confirmed & authorized.</span>
+                      </div>
+                      <button
+                        onClick={() => setSelectedPassRequest(req)}
+                        className="w-full sm:w-auto px-3.5 py-2 min-h-[44px] sm:min-h-[34px] bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold shrink-0 flex items-center justify-center space-x-1.5 shadow-xs transition-colors"
+                      >
+                        <ShieldCheck className="w-4 h-4" />
+                        <span>View Lab Pass</span>
+                      </button>
+                    </div>
+                  )}
+
                   {req.status === 'conflict' && (
                     <div className="mt-3 p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
                       <div className="flex items-center space-x-2 text-xs text-rose-900 dark:text-rose-200 font-semibold">
@@ -151,6 +170,12 @@ export const StudentRequestsView: React.FC<StudentRequestsViewProps> = ({
           })}
         </div>
       )}
+
+      {/* Digital Lab Access Pass Modal */}
+      <LabPassModal
+        request={selectedPassRequest}
+        onClose={() => setSelectedPassRequest(null)}
+      />
     </div>
   );
 };
