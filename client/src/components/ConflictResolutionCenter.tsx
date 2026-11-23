@@ -83,7 +83,7 @@ export const ConflictResolutionCenter: React.FC<ConflictResolutionCenterProps> =
           </h1>
           <p className="mt-2 text-sm text-slate-300 leading-relaxed">
             When multiple students across 5 engineering departments compete for the same specialized equipment slot,
-            the LabLink AI engine analyzes project deadline proximity, thesis criticality, requirement specificity, and alternative hardware availability to generate a mathematically fair, zero-penalty schedule plan.
+            the LabSync AI engine analyzes project deadline proximity, thesis criticality, requirement specificity, and alternative hardware availability to generate a mathematically fair, zero-penalty schedule plan.
           </p>
 
           <div className="mt-4 flex flex-wrap items-center gap-3 text-xs font-medium text-slate-300">

@@ -1,8 +1,8 @@
 {
-  "name": "lablink-monorepo",
+  "name": "labsync-monorepo",
   "version": "1.0.0",
   "private": true,
-  "description": "LabLink - Production-Ready GenAI-Powered Campus Laboratory Resource Sharing",
+  "description": "LabSync - Production-Ready GenAI-Powered Campus Laboratory Resource Sharing",
   "workspaces": [
     "server",
     "client"

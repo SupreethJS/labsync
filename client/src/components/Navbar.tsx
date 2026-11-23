@@ -43,7 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={() => onTabChange(role === 'student' ? 'catalog' : 'faculty-requests')}
               className="flex items-center space-x-2 text-left group focus-visible:ring-2 focus-visible:ring-teal-600 rounded-lg p-1"
-              aria-label="LabLink Home"
+              aria-label="LabSync Home"
             >
               <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-teal-600 to-cyan-600 flex items-center justify-center text-white shadow-md shadow-teal-500/20 group-hover:scale-105 transition-transform">
                 <Cpu className="w-6 h-6" />
@@ -51,7 +51,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div>
                 <div className="flex items-center space-x-1.5">
                   <span className="font-extrabold text-xl tracking-tight bg-gradient-to-r from-teal-800 to-cyan-800 bg-clip-text text-transparent">
-                    LabLink
+                    LabSync
                   </span>
                   <span className="text-[10px] font-semibold tracking-wider uppercase px-1.5 py-0.5 rounded bg-teal-100 text-teal-800">
                     GenAI

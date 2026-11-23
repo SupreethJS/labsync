@@ -10,7 +10,7 @@ const app = createApp();
 
 const server = app.listen(PORT, HOST, () => {
   console.log(`====================================================`);
-  console.log(`🚀 LabLink Server running at http://${HOST}:${PORT}`);
+  console.log(`🚀 LabSync Server running at http://${HOST}:${PORT}`);
   console.log(`📡 Health Check: http://${HOST}:${PORT}/api/health`);
   console.log(`🤖 Gemini AI Engine: ${process.env.GEMINI_API_KEY ? 'Active (API Key loaded)' : 'Fallback Mode (Deterministic Heuristics Active)'}`);
   console.log(`====================================================`);

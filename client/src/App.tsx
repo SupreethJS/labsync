@@ -200,7 +200,7 @@ export function App() {
       <footer className="bg-white border-t border-slate-200 py-6 mt-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-3">
           <div className="flex items-center space-x-2">
-            <span className="font-bold text-teal-800">LabLink</span>
+            <span className="font-bold text-teal-800">LabSync</span>
             <span>&bull;</span>
             <span>Campus Laboratory Resource-Sharing Platform</span>
           </div>

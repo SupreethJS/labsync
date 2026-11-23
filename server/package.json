@@ -1,9 +1,9 @@
 {
-  "name": "lablink-server",
+  "name": "labsync-server",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "LabLink backend server with Gemini GenAI Integration",
+  "description": "LabSync backend server with Gemini GenAI Integration",
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",

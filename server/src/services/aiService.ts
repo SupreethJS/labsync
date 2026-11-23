@@ -112,7 +112,7 @@ export class AIService {
       tags: eq.tags,
     }));
 
-    const systemInstruction = `You are LabLink's AI Academic Resource Advisor. You help students and researchers find the exact campus lab equipment for their project goals across 5 departments (AI & ML, Computer Science, Electronics & ECE, Mechanical, Robotics).
+    const systemInstruction = `You are LabSync's AI Academic Resource Advisor. You help students and researchers find the exact campus lab equipment for their project goals across 5 departments (AI & ML, Computer Science, Electronics & ECE, Mechanical, Robotics).
 Return ONLY a valid JSON object matching this schema:
 {
   "query": string,
@@ -161,7 +161,7 @@ ${JSON.stringify(catalogSummary, null, 2)}`;
       (e) => e.category === store.getEquipmentById(conflict.equipmentId)?.category && e.id !== conflict.equipmentId
     );
 
-    const systemInstruction = `You are LabLink's Academic Conflict Resolution Engine.
+    const systemInstruction = `You are LabSync's Academic Conflict Resolution Engine.
 Two students requested overlapping time slots for the same high-demand campus equipment.
 Your job is to provide a fair, transparent, and academically sound allocation plan evaluating:
 1. Project Deadline Proximity & Urgency (e.g., imminent thesis defense vs flexible coursework)
@@ -427,7 +427,7 @@ ${compatibleAlternatives.map((a) => `- ${a.name} (ID: ${a.id}, Lab: ${a.labRoom}
     const priRationale = `Project deadline is ${priDays <= 1 ? 'critical (within 24-48 hours)' : `in ${priDays} days`}. Hardware requirements require immediate bench access to satisfy milestone deliverables.`;
     const secRationale = `Project deadline is comfortably situated in ${secDays} days. Requirements permit flexible slot shifting or alternative hardware routing without academic penalty.`;
 
-    const fairnessJustification = `LabLink fairness balance evaluated deadline urgency (${priReq.studentName}: ${priDays}d vs ${secReq.studentName}: ${secDays}d), requirement specificity, and department cross-allocation equity. Priority is granted to the time-critical milestone while guaranteeing full slot accommodation for the secondary project.`;
+    const fairnessJustification = `LabSync fairness balance evaluated deadline urgency (${priReq.studentName}: ${priDays}d vs ${secReq.studentName}: ${secDays}d), requirement specificity, and department cross-allocation equity. Priority is granted to the time-critical milestone while guaranteeing full slot accommodation for the secondary project.`;
 
     const recommendedPlanSummary = `Allocate ${priReq.studentName} the requested slot (${priReq.startTime}-${priReq.endTime}) on ${conflict.date}. Reroute ${secReq.studentName} via ${alternativeType === 'alternative_equipment' ? alternativeEquipmentName : 'shifted open slot ' + shiftedSlot.startTime + '-' + shiftedSlot.endTime} with zero project disruption.`;
 

@@ -1,4 +1,4 @@
-# Multi-stage Dockerfile for LabLink (Single Container on Google Cloud Run)
+# Multi-stage Dockerfile for LabSync (Single Container on Google Cloud Run)
 
 # ==========================================
 # Stage 1: Build Client & Server

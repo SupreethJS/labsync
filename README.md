@@ -1,12 +1,12 @@
-# LabLink 🔬⚡
+# LabSync 🔬⚡
 > **Production-Ready, GenAI-Powered Campus Laboratory Resource-Sharing Platform**
 > Built with React (Vite + TypeScript + Tailwind CSS) & Node.js (Express + TypeScript) in a single-container monorepo ready for Google Cloud Run.
 
 [![Node.js](https://img.shields.io/badge/Node.js-v22+-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![React](https://img.shields.io/badge/React-v18-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Gemini 3.8 Flash](https://img.shields.io/badge/GenAI-Gemini%203.8%20Flash-4285F4?logo=google&logoColor=white)](https://ai.google.dev/)
-[![Vitest](https://img.shields.io/badge/Tests-19%20Passing-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev/)
+[![Gemini 2.5 Flash](https://img.shields.io/badge/GenAI-Gemini%202.5%20Flash-4285F4?logo=google&logoColor=white)](https://ai.google.dev/)
+[![Vitest](https://img.shields.io/badge/Tests-36%20Passing-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev/)
 [![Google Cloud Run](https://img.shields.io/badge/Deploy-Cloud%20Run-4285F4?logo=google-cloud&logoColor=white)](https://cloud.google.com/run)
 
 ---
@@ -18,14 +18,14 @@ Modern university research is deeply interdisciplinary—robotics teams need hig
 - **Scheduling deadlocks & conflicts** between competing academic milestones (e.g. imminent Master's thesis deadlines vs routine coursework).
 - **Friction in cross-department discovery**, forcing students to resort to word-of-mouth or uncoordinated lab walk-ins.
 
-**LabLink** solves this by uniting **5 core engineering departments** (AI & ML, Computer Science, Electronics & ECE, Mechanical, Robotics) onto a single, real-time resource-sharing platform powered by Google Gemini and a transparent deterministic fallback scheduler.
+**LabSync** solves this by uniting **5 core engineering departments** (AI & ML, Computer Science, Electronics & ECE, Mechanical, Robotics) onto a single, real-time resource-sharing platform powered by Google Gemini and a transparent deterministic fallback scheduler.
 
 ---
 
 ## ✨ Key Capabilities & Hero Features
 
 ### 1. ⚡ GenAI Conflict Resolution Engine (Hero Feature)
-When two students request overlapping slots on high-demand equipment, traditional schedulers operate on a crude first-come, first-served basis—frequently starving critical milestones. LabLink introduces an **Autonomous Multi-Factor Conflict Engine**:
+When two students request overlapping slots on high-demand equipment, traditional schedulers operate on a crude first-come, first-served basis—frequently starving critical milestones. LabSync introduces an **Autonomous Multi-Factor Conflict Engine**:
 - Evaluates **Project Deadline Proximity & Urgency** (e.g., critical thesis submission within 24 hours vs homework due in 14 days).
 - Evaluates **Requirement Specificity** (e.g., strict hardware dependency on 48GB VRAM or PA-CF carbon filament vs general compute).
 - Enforces **Cross-Department Equity** to eliminate departmental bias.
@@ -43,7 +43,7 @@ Students rarely know exact laboratory model numbers. Instead of manual filtering
 
 ### 3. 🛡️ Safe Deterministic Fallback (Zero Crash Guarantee)
 If `GEMINI_API_KEY` is not provided, expired, or rate-limited:
-- LabLink automatically switches to its **Smart Scheduler Fallback Engine** (`deterministic-deadline-fairness-v2` and `heuristic-rules-v2`).
+- LabSync automatically switches to its **Smart Scheduler Fallback Engine** (`deterministic-deadline-fairness-v2` and `heuristic-rules-v2`).
 - Both AI Equipment Discovery and Conflict Resolution continue to work transparently, returning formatted recommendations with a clear `source: 'smart-scheduler-fallback'` badge.
 - **The application never crashes in the absence of an API key.**
 
@@ -70,7 +70,7 @@ flowchart TD
     Store[("In-Memory State Manager\n(14 Equipment + Reactive Slots)")]
     AIService["AIService (@google/genai SDK)"]
     Fallback["Deterministic Heuristics Engine"]
-    Gemini[("Google Gemini 3.8 Flash API")]
+    Gemini[("Google Gemini 2.5 Flash API")]
 
     Client -->|REST API Requests| Server
     Server -->|Validation & CRUD| Store
@@ -83,7 +83,7 @@ flowchart TD
 
 ### Monorepo Organization
 ```
-LabLink/
+LabSync/
 ├── client/                     # Frontend (React 18, Vite, TypeScript, Tailwind CSS)
 │   ├── src/
 │   │   ├── api/client.ts       # Typed API client with custom error handling
@@ -120,7 +120,7 @@ LabLink/
 │   │   │   ├── conflictService.ts # Overlap math & conflict resolution
 │   │   │   └── store.ts        # In-memory persistent reactive store
 │   │   └── tests/
-│   │       └── lablink.test.ts # 19 Vitest unit and API integration tests
+│   │       └── labsync.test.ts # 36 Vitest unit and API integration tests
 │   ├── tsconfig.json
 │   └── vitest.config.ts
 ├── Dockerfile                  # Multi-stage production container build
@@ -138,7 +138,7 @@ LabLink/
 1. **Zero Secret Leakage**: `GEMINI_API_KEY` is strictly accessed server-side and is never bundled into client assets.
 2. **Strict Zod Input Validation**: Every request body undergoes compile-time and runtime validation (checking email format, time ranges, minimum text lengths, and department enums). Invalid requests are rejected with a 400 status.
 3. **Defense-in-Depth Middleware**:
-   - `helmet`: Hardens HTTP security headers.
+   - `helmet`: Hardens HTTP security headers with tailored CSP.
    - `cors`: Restricted cross-origin resource sharing policy.
    - `express-rate-limit`: Protects `/api/*` endpoints from abuse (500 requests per 15 minutes per IP).
 4. **Sanitized Error Responses**: Internal exception stack traces are never exposed in production JSON responses.
@@ -164,8 +164,8 @@ LabLink/
 ### Installation & Environment Setup
 ```bash
 # 1. Clone repository
-git clone <repository-url>
-cd LabLink
+git clone https://github.com/SupreethJS/labsync.git
+cd labsync
 
 # 2. Install workspace dependencies
 npm install
@@ -182,7 +182,7 @@ Run the complete Vitest and Supertest automated test suite covering slot overlap
 ```bash
 npm test
 ```
-*Expected output: All 19 tests pass in < 1 second.*
+*Expected output: All 36 tests pass in < 1 second.*
 
 ### Building for Production
 Build both the React client bundle and the TypeScript server:
@@ -207,15 +207,15 @@ npm run dev
 
 ## ☁️ Google Cloud Run Deployment
 
-LabLink is packaged as a single lean container. In production, Express serves the compiled React application directly from `client/dist` and listens on `PORT=8080` bound to `0.0.0.0`.
+LabSync is packaged as a single lean container. In production, Express serves the compiled React application directly from `client/dist` and listens on `PORT=8080` bound to `0.0.0.0`.
 
 ### 1. Build and Test Container Locally with Docker
 ```bash
 # Build the multi-stage Docker image
-docker build -t lablink:latest .
+docker build -t labsync:latest .
 
 # Run the container locally
-docker run -p 8080:8080 -e PORT=8080 -e GEMINI_API_KEY=your_key lablink:latest
+docker run -p 8080:8080 -e PORT=8080 -e GEMINI_API_KEY=your_key labsync:latest
 ```
 Visit `http://localhost:8080/api/health` to verify container readiness.
 
@@ -225,17 +225,17 @@ Visit `http://localhost:8080/api/health` to verify container readiness.
 gcloud config set project YOUR_PROJECT_ID
 
 # Build and submit the container to Google Cloud Artifact Registry / Container Registry
-gcloud builds submit --tag gcr.io/YOUR_PROJECT_ID/lablink
+gcloud builds submit --tag gcr.io/YOUR_PROJECT_ID/labsync
 
 # Deploy the container on Google Cloud Run
-gcloud run deploy lablink \
-  --image gcr.io/YOUR_PROJECT_ID/lablink \
+gcloud run deploy labsync \
+  --image gcr.io/YOUR_PROJECT_ID/labsync \
   --platform managed \
   --region us-central1 \
   --allow-unauthenticated \
   --port 8080 \
   --set-env-vars="GEMINI_MODEL=gemini-2.5-flash" \
-  --set-secrets="GEMINI_API_KEY=lablink-gemini-key:latest"
+  --set-secrets="GEMINI_API_KEY=labsync-gemini-key:latest"
 ```
 
 ---

@@ -12,7 +12,7 @@ import {
 import { getInitialSeedData } from '../data/seed.js';
 import { CreateRequestInput } from '../schemas/index.js';
 
-export class LabLinkStore {
+export class LabSyncStore {
   private equipment: Map<string, Equipment> = new Map();
   private requests: Map<string, AccessRequest> = new Map();
   private conflicts: Map<string, SchedulingConflict> = new Map();
@@ -531,4 +531,4 @@ export class LabLinkStore {
 }
 
 // Global singleton instance for in-memory persistence
-export const store = new LabLinkStore();
+export const store = new LabSyncStore();

@@ -6,7 +6,7 @@ import { conflictService } from '../services/conflictService.js';
 
 const app = createApp();
 
-describe('LabLink Comprehensive Audit Test Suite', () => {
+describe('LabSync Comprehensive Audit Test Suite', () => {
   beforeEach(() => {
     store.reset();
   });
@@ -16,7 +16,7 @@ describe('LabLink Comprehensive Audit Test Suite', () => {
       const res = await request(app).get('/api/health');
       expect(res.status).toBe(200);
       expect(res.body.status).toBe('healthy');
-      expect(res.body.service).toBe('LabLink API');
+      expect(res.body.service).toBe('LabSync API');
       expect(typeof res.body.geminiConfigured).toBe('boolean');
       expect(res.body.model).toBeDefined();
     });

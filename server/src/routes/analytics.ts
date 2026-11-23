@@ -17,7 +17,7 @@ analyticsRouter.post('/reset', (_req: Request, res: Response) => {
   store.reset();
   res.json({
     success: true,
-    message: 'LabLink store reset to initial seed state with 2 active conflicts.',
+    message: 'LabSync store reset to initial seed state with 2 active conflicts.',
     data: store.getAnalytics(),
   });
 });

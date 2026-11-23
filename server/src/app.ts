@@ -68,7 +68,7 @@ export function createApp() {
       status: 'healthy',
       uptime: process.uptime(),
       timestamp: new Date().toISOString(),
-      service: 'LabLink API',
+      service: 'LabSync API',
       version: '1.0.0',
       geminiConfigured: Boolean(process.env.GEMINI_API_KEY?.trim()),
       model: process.env.GEMINI_MODEL || 'gemini-2.5-flash',
